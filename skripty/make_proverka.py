@@ -95,7 +95,8 @@ def row_html(r):
 counts = {k: sum(1 for r in ROWS if r[6] == k) for k in VERDICT}
 table = "\n".join(row_html(r) for r in ROWS)
 
-tpl = open(r"C:\Users\User\AppData\Local\Temp\claude\C--Users-User-zapchasti\e1b52f9a-2a79-4d48-bc2b-f8720401d9f7\scratchpad\proverka_tpl.html", encoding="utf-8").read()
+import os
+tpl = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka_tpl.html"), encoding="utf-8").read()
 out = tpl.replace("{{TABLE}}", table)
 for k, c in counts.items():
     out = out.replace("{{C_" + k + "}}", str(c))
