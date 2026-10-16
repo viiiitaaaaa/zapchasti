@@ -4,3 +4,5 @@ vhod/
 *.log
 .playwright-mcp/
 __pycache__/
+otchet_vse_v_odnom_fayle.html
+otchet_itog_*.html
