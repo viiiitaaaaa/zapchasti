@@ -6,321 +6,323 @@
 <title>Проверка списка Чжана</title>
 <style>
 :root{--bg:#f7f6f3;--card:#fff;--ink:#1d1d1f;--mute:#6b6b70;--line:#e3e1dc;--accent:#b4442b;
---t:#1f7a4a;--t-bg:#e3f3ea;--z:#8a6a12;--z-bg:#f7efd6;--d:#3b5b8c;--d-bg:#e5ecf7;--n:#a3312a;--n-bg:#f8e3e1;--u:#77767b;--u-bg:#efeeec}
+--t:#1f7a4a;--t-bg:#e3f3ea;--t2:#2f6b5a;--t2-bg:#e6f0ec;--z:#8a6a12;--z-bg:#f7efd6;--d:#3b5b8c;--d-bg:#e5ecf7;--n:#a3312a;--n-bg:#f8e3e1;--u:#77767b;--u-bg:#efeeec;--hl:#fff6c2}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17171a;--card:#202024;--ink:#ececee;--mute:#a1a1a8;--line:#34343a;--accent:#e2765c;
---t:#7fd3a3;--t-bg:#1f3a2b;--z:#e3c56a;--z-bg:#3a321a;--d:#9db8e6;--d-bg:#222f45;--n:#f0938a;--n-bg:#43221f;--u:#a5a4aa;--u-bg:#2a2a2f}}
+--t:#7fd3a3;--t-bg:#1f3a2b;--t2:#9fd8c4;--t2-bg:#203530;--z:#e3c56a;--z-bg:#3a321a;--d:#9db8e6;--d-bg:#222f45;--n:#f0938a;--n-bg:#43221f;--u:#a5a4aa;--u-bg:#2a2a2f;--hl:#3a3418}}
 :root[data-theme="dark"]{--bg:#17171a;--card:#202024;--ink:#ececee;--mute:#a1a1a8;--line:#34343a;--accent:#e2765c;
---t:#7fd3a3;--t-bg:#1f3a2b;--z:#e3c56a;--z-bg:#3a321a;--d:#9db8e6;--d-bg:#222f45;--n:#f0938a;--n-bg:#43221f;--u:#a5a4aa;--u-bg:#2a2a2f}
+--t:#7fd3a3;--t-bg:#1f3a2b;--t2:#9fd8c4;--t2-bg:#203530;--z:#e3c56a;--z-bg:#3a321a;--d:#9db8e6;--d-bg:#222f45;--n:#f0938a;--n-bg:#43221f;--u:#a5a4aa;--u-bg:#2a2a2f;--hl:#3a3418}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
 h1{font-size:28px;margin:0 0 4px}
-h2{font-size:21px;margin:36px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
-h3{font-size:17px;margin:20px 0 6px}
+h2{font-size:22px;margin:40px 0 10px;padding-top:10px;border-top:1px solid var(--line)}
+h3{font-size:18px;margin:4px 0 6px}
 .sub{color:var(--mute);margin:0 0 20px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
 .key{border-left:4px solid var(--accent)}
 ul,ol{padding-left:22px;margin:6px 0}
-li{margin:4px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.num{font-size:26px;font-weight:700}
+li{margin:5px 0}
 .mute{color:var(--mute);font-size:14px}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.nw{white-space:nowrap}
+.gloss dt{font-weight:700;margin-top:10px}
+.gloss dd{margin:2px 0 0 0}
+.fact{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+.fact p{margin:4px 0}
+.src{font-size:14px}
+.shot{margin:0}
+.shot img{width:100%;max-width:340px;border:1px solid var(--line);border-radius:8px;display:block;cursor:zoom-in;background:#fff}
+.shot figcaption{font-size:13px;color:var(--mute);margin-top:4px}
+.miss{color:var(--n);font-size:13px}
+.part-head{display:flex;gap:16px;align-items:flex-start}
+.foto{width:110px;height:auto;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:zoom-in}
+.mini{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+.mini th,.mini td{border-top:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.mini td:last-child{width:300px}
+.mini .shot img{max-width:280px}
+.verdict{background:var(--hl);border-radius:8px;padding:10px 12px;margin:12px 0 0}
 .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{position:sticky;top:0;background:var(--card);font-weight:600}
-.mono{font-family:ui-monospace,Consolas,monospace;font-size:13px;white-space:nowrap}
-.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;white-space:nowrap;font-weight:600}
-.t{color:var(--t);background:var(--t-bg)}.z{color:var(--z);background:var(--z-bg)}.d{color:var(--d);background:var(--d-bg)}
-.n{color:var(--n);background:var(--n-bg)}.u{color:var(--u);background:var(--u-bg)}
+table.big{border-collapse:collapse;width:100%;font-size:14px}
+table.big th,table.big td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.big th{position:sticky;top:0;background:var(--card)}
+table.big .foto{width:70px}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.t{color:var(--t);background:var(--t-bg)}.t2{color:var(--t2);background:var(--t2-bg)}.z{color:var(--z);background:var(--z-bg)}
+.d{color:var(--d);background:var(--d-bg)}.n{color:var(--n);background:var(--n-bg)}.u{color:var(--u);background:var(--u-bg)}
 tr.v-u td{color:var(--mute)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .filters button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:4px 12px;font:inherit;font-size:14px;cursor:pointer}
 .filters button.on{border-color:var(--accent);color:var(--accent)}
-.zh{font-family:"Microsoft YaHei","PingFang SC",sans-serif}
-.q{margin:10px 0}
-.q .ru{font-weight:600}
-.q .zh{color:var(--mute)}
+.fix li{margin:8px 0}
+.q{margin:10px 0}.q .ru{font-weight:600}.q .zh{color:var(--mute);font-family:"Microsoft YaHei","PingFang SC",sans-serif}
 a{color:var(--accent)}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:10;cursor:zoom-out;padding:16px}
+#lb img{max-width:100%;max-height:100%;border-radius:6px;background:#fff}
+@media (max-width:760px){.fact{grid-template-columns:1fr}.mini td:last-child{width:auto}.part-head{flex-direction:column}}
+
 </style>
 </head>
 <body>
 <main>
 <h1>Проверка списка запчастей Чжана</h1>
-<p class="sub">66 позиций, почти всё на Great Wall Poer (长城炮), немного на Poer Kingkong (金刚炮). Собрано 16.10.2026: Wordstat, emex.ru, zzap.ru, новости рынка.
-Файл только для ПК 🟡: наружу не выкладывать.</p>
+<p class="sub">66 деталей на пикап Great Wall Poer (长城炮). Проверено 16.10.2026. У каждой цифры есть снимок страницы, откуда она взята: нажми на снимок — он откроется крупно.
+Все цифры сверены второй раз по этим снимкам. Файл только для ПК 🟡.</p>
 
 <div class="card key">
-<h3 style="margin-top:0">Коротко, в 6 строк</h3>
+<h3>Итог простыми словами</h3>
 <ol>
-<li><b>Рынок маленький.</b> Poer в России: примерно 15–20 тыс. машин на дорогах (прикидка). Haval в 30–50 раз больше.</li>
-<li><b>Список — под дизель 2.0 (GW4D20M)</b>, то есть под Poer 2021–2024 годов. Это и есть основной парк в России.</li>
-<li><b>Расходники (фильтры, колодки, диски) — забиты.</b> 20–54 бренда-аналога, сотни продавцов, наценка маленькая. Брать только «довеском».</li>
-<li><b>Ниша — дорогая дизельная топливная система и тяжёлая подвеска.</b> ТНВД, форсунки, рампа, вакуумный насос, помпа, сцепление, задние амортизаторы. Там в наличии 0–3 продавца, остальные везут 1–2 месяца.</li>
-<li><b>Но на Ozon и WB китайские продавцы уже есть.</b> Они везут прямо из Китая, и выходит дешевле, чем на emex: ТНВД от 20 тыс. ₽ (на emex 57–70 тыс.), форсунка от 5 тыс. (на emex 14–33 тыс.), рампа 10–30 тыс. (на emex ~40 тыс.). Значит, только дешёвая цена нас не выделит. Наш плюс может быть в том, что деталь <b>уже лежит в России</b> и придёт за 1–3 дня, а не через 2–4 недели.</li>
-<li><b>До плана нужны ответы Чжана</b>: откуда товар, по какой цене, сколько на складе и можно ли довезти (вопросы внизу).</li>
+<li><b>Машин мало.</b> Poer продают в России с 2021 года, по 1–3 тысячи в год. Haval продают в десятки раз больше (раздел 2).</li>
+<li><b>Список Чжана подходит к Poer 2021–2024 годов с дизелем 2,0.</b> У новых Poer (с 2025 года) уже другой мотор.</li>
+<li><b>Фильтры, колодки, диски — брать нельзя как основной товар.</b> Их продают десятки магазинов (по 10–62 продавца на деталь).</li>
+<li><b>Дорогие детали топливной системы китайцы уже продают на Ozon и WB</b> — в 3 раза дешевле, чем российские магазины. Конкурировать с ними можно только ценой Чжана.</li>
+<li><b>Два настоящих «пустых места»:</b> вакуумный насос и задний амортизатор. По их номерам на Ozon ничего нет, в российских магазинах — 2–3 продавца.</li>
+<li><b>Решать, что брать, можно только после цен Чжана.</b> Для каждой детали ниже написано, ниже какой цены она нам выгодна.</li>
 </ol>
 </div>
 
-<h2>1. Сколько людей ищут (Wordstat, Россия, сентябрь–октябрь 2026, в месяц)</h2>
-<div class="grid">
- <div class="card"><div class="num">18 900</div><div>«great wall poer»</div><div class="mute">сама машина: интерес есть</div></div>
- <div class="card"><div class="num">26 600</div><div>«поер» (по-русски)</div><div class="mute">в основном покупка и отзывы</div></div>
- <div class="card"><div class="num">154</div><div>«запчасти poer»</div><div class="mute">для сравнения: «запчасти haval» — 3 700</div></div>
- <div class="card"><div class="num">1 300</div><div>«gw4d20m»</div><div class="mute">название дизеля; «купить» — всего 24</div></div>
-</div>
+<h2>1. Как читать этот отчёт (словарик)</h2>
 <div class="card">
-<p style="margin-top:0"><b>По деталям (запрос «poer + деталь»):</b></p>
-<ul>
-<li>фильтр — 938 (из них топливный ≈ 460), масло — 845</li>
-<li>колодки — 341, подвеска — 280, рессоры — 156, тормозные диски — 106</li>
-<li>топливный насос — 97, турбина — 74, форсунки — 71, ТНВД — 66, сцепление — 53</li>
-<li>мочевина — 19, маховик — 0</li>
-</ul>
-<p class="mute">Источник: <a href="https://wordstat.yandex.ru/?region=225&view=table&words=great%20wall%20poer">Wordstat «great wall poer»</a> ·
-<a href="https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B7%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8%20poer">«запчасти poer»</a> ·
-<a href="https://wordstat.yandex.ru/?region=225&view=table&words=%D0%B7%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8%20haval">«запчасти haval»</a> ·
-<a href="https://wordstat.yandex.ru/?region=225&view=table&words=gw4d20m">«gw4d20m»</a> (Wordstat открывается после входа в Яндекс).</p>
-<p class="mute" style="margin-bottom:0">Осторожно: запрос «poer» (45 тыс.) засорён. Например, «термостат poer» (561) — это умный термостат другой фирмы Poer, к машине отношения не имеет.
-Главный вывод: по названию детали ищут мало. Запчасти покупают <b>по номеру OE</b> на emex, zzap, Ozon и Авито, а ещё через автосервисы. Значит, Wordstat спрос занижает, и продавать надо там, где ищут по номеру.</p>
+<dl class="gloss">
+<dt>OE-номер</dt><dd>Заводской номер детали, как артикул. По нему детали ищут и покупают: название может отличаться, а номер — нет. Например, 1111100XED61 — это ТНВД именно для Poer.</dd>
+<dt>zzap.ru</dt><dd>Сайт, который собирает предложения сотен магазинов запчастей в Москве и области. Вверху страницы — табличка «Найдено»: сколько продавцов и какие цены (минимум, средняя, максимум).</dd>
+<dt>«В наличии» и «под заказ»</dt><dd>«В наличии» — деталь уже лежит на складе в России, отдадут за 0–2 дня. «Под заказ» — магазин сам её где-то закажет, ждать от нескольких дней до 2 месяцев.</dd>
+<dt>Аналог</dt><dd>Такая же деталь, но не с завода Great Wall, а от другой фирмы (например, Gates, LUK). Обычно дешевле.</dd>
+<dt>«Скидки без границ» на WB, пометка «AliExpress», доставка через 2–4 недели на Ozon</dt><dd>Это товары, которые едут из-за границы, обычно из Китая. То есть китайские продавцы уже продают эти детали россиянам напрямую.</dd>
+<dt>Wordstat</dt><dd>Сервис Яндекса: сколько раз за месяц люди в России искали фразу.</dd>
+<dt>Как сделаны снимки</dt><dd>Снимки zzap, WB и статей сняты автоматически, снимки Ozon и Wordstat — в твоём Chrome. Ozon отсортирован «Дешевле»: первая карточка = самая низкая цена, а в фильтре «Цена» слева виден весь разброс.</dd>
+</dl>
 </div>
 
-<h2>2. Парк машин и рынок</h2>
+<h2>2. Рынок: сколько машин и кто конкуренты</h2>
+<div class="card fact"><div class="fact-text"><p>Poer начали продавать в России в 2021 году: цена от 2 299 000 ₽, мотор один — дизель 2,0 литра <b>4D20M</b>, коробка только автомат.</p><p class="mute">Что это значит: Детали в списке Чжана (с буквами XED в номере) — как раз для этого дизеля. Детали для механической коробки нужны немногим машинам.</p><p class="src">Источник: <a href="https://www.kolesa.ru/news/v-rf-startovali-prodazhi-pikapa-great-wall-poer-dizel-avtomat-i-udobnyy-polnyy-privod" target="_blank">kolesa.ru</a></p></div><figure class="shot"><a href="dokazatelstva/n01_kolesa_start2021.png" data-big="dokazatelstva/n01_kolesa_start2021.png"><img src="dokazatelstva/n01_kolesa_start2021.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>За 2023 год продано <b>2 937</b> Poer — третье место среди пикапов.</p><p class="src">Источник: <a href="https://iz.ru/1639745/2024-01-25/kitaiskaia-marka-operedila-uaz-po-prodazham-pikapov-v-rossii" target="_blank">Известия</a></p></div><figure class="shot"><a href="dokazatelstva/n02_iz_2023.png" data-big="dokazatelstva/n02_iz_2023.png"><img src="dokazatelstva/n02_iz_2023.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Poer и Kingkong вместе в 2024 году (на дату статьи): <b>4,9 тыс.</b></p><p class="src">Источник: <a href="https://www.autonews.ru/news/671a07019a79476c2a784713" target="_blank">Autonews, статья от 24.10.2024</a></p></div><figure class="shot"><a href="dokazatelstva/n03_autonews_2024.png" data-big="dokazatelstva/n03_autonews_2024.png"><img src="dokazatelstva/n03_autonews_2024.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Первое полугодие 2025: <b>1 165</b> Poer, на 53% меньше, чем год назад. Продажи падают.</p><p class="src">Источник: <a href="https://www.zr.ru/content/news/970509-nazvany-samye-populyarnye-pikap/" target="_blank">За рулём</a></p></div><figure class="shot"><a href="dokazatelstva/n04_zr_2025.png" data-big="dokazatelstva/n04_zr_2025.png"><img src="dokazatelstva/n04_zr_2025.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>За 2025 год продано <b>1 938</b> дизельных Poer. С 2026 года появилась версия с механикой и дизелем 2.0 (163 л. с.).</p><p class="src">Источник: <a href="https://www.autonews.ru/news/6a43b8509a794791e07d6e81" target="_blank">Autonews</a></p></div><figure class="shot"><a href="dokazatelstva/n05_autonews_diesel2025.png" data-big="dokazatelstva/n05_autonews_diesel2025.png"><img src="dokazatelstva/n05_autonews_diesel2025.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>После обновления в 2025 году дизель стал другим: 2,4 литра, 184 л. с.</p><p class="mute">Что это значит: Новые Poer с мотором 2,4 этим деталям не подходят. Список Чжана — для машин 2021–2024 годов.</p><p class="src">Источник: <a href="https://auto.ru/mag/article/v-rossii-nachalis-prodazhi-pikapa-great-wall-poer-s-novymi-motorami/" target="_blank">Авто.ру</a></p></div><figure class="shot"><a href="dokazatelstva/n07_autoru_motors2025.png" data-big="dokazatelstva/n07_autoru_motors2025.png"><img src="dokazatelstva/n07_autoru_motors2025.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Поставки Poer <b>Kingkong</b> в Россию прекращены, но обслуживание и запчасти компания обещает.</p><p class="mute">Что это значит: Kingkong в России мало — его позиции из списка в тест не берём.</p><p class="src">Источник: <a href="https://auto.ru/mag/article/postavki-pikapov-great-wall-kingkong-poer-v-rossiyu-prekrashcheny/" target="_blank">Авто.ру</a></p></div><figure class="shot"><a href="dokazatelstva/n06_autoru_kingkong.png" data-big="dokazatelstva/n06_autoru_kingkong.png"><img src="dokazatelstva/n06_autoru_kingkong.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Haval за 2025 год: <b>173 302</b> машины — второе место в России.</p><p class="mute">Что это значит: Это примерно в 90 раз больше, чем дизельных Poer за тот же год (1 938).</p><p class="src">Источник: <a href="https://www.autonews.ru/news/6965e6029a79474883fe9f15" target="_blank">Autonews (данные «Автостата»)</a></p></div><figure class="shot"><a href="dokazatelstva/n08_autonews_haval2025.png" data-big="dokazatelstva/n08_autonews_haval2025.png"><img src="dokazatelstva/n08_autonews_haval2025.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>У GWM (завод Haval и Poer) свой склад запчастей в Подмосковье: больше <b>42 тыс. м²</b> и больше <b>35 тыс.</b> видов деталей.</p><p class="mute">Что это значит: Оригинальные запчасти завод возит сам — это сильный конкурент.</p><p class="src">Источник: <a href="https://www.autonews.ru/news/6a4b9ba89a7947f5e08fc594" target="_blank">Autonews</a></p></div><figure class="shot"><a href="dokazatelstva/n09_autonews_sklad.png" data-big="dokazatelstva/n09_autonews_sklad.png"><img src="dokazatelstva/n09_autonews_sklad.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>В 2026 году запчасти в России подорожали на <b>20–40%</b>, есть дефицит.</p><p class="src">Источник: <a href="https://www.zr.ru/content/news/982387-mashina-stala-roskoshyu-pochemu/" target="_blank">За рулём</a></p></div><figure class="shot"><a href="dokazatelstva/n10_zr_ceny2026.png" data-big="dokazatelstva/n10_zr_ceny2026.png"><img src="dokazatelstva/n10_zr_ceny2026.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Обязательная маркировка запчастей «Честный знак» пока не введена: эксперимент продлили до <b>28 февраля 2027</b>.</p><p class="mute">Что это значит: Потом её введут — к этому надо готовиться.</p><p class="src">Источник: <a href="https://kontur.ru/markirovka/spravka/55894-obyazatelnaya_markirovka_avtozapchastey" target="_blank">Контур</a></p></div><figure class="shot"><a href="dokazatelstva/n11_kontur_marking.png" data-big="dokazatelstva/n11_kontur_marking.png"><img src="dokazatelstva/n11_kontur_marking.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Для кода запчастей 8708 29 100 0: пошлина <b>5%</b>, НДС при ввозе <b>22%</b>.</p><p class="mute">Что это значит: Это пример одного кода. Для каждой детали код и пошлину надо уточнять.</p><p class="src">Источник: <a href="https://www.ifcg.ru/en/kb/tnved/8708291000/" target="_blank">IFCG (таможенный справочник)</a></p></div><figure class="shot"><a href="dokazatelstva/n12_ifcg_poshlina.png" data-big="dokazatelstva/n12_ifcg_poshlina.png"><img src="dokazatelstva/n12_ifcg_poshlina.png" loading="lazy" alt=""></a><figcaption>жёлтым — место с цифрой</figcaption></figure></div>
+
+<h2>3. Сколько ищут (Wordstat)</h2>
+<div class="card fact"><div class="fact-text"><p>Запрос «great wall poer» — <b>18 921</b> в месяц.</p><p class="mute">Интерес к самой машине есть.</p><p class="src"><a href="https://wordstat.yandex.ru/?region=225&amp;view=table&amp;words=great%20wall%20poer" target="_blank">открыть в Wordstat</a> (нужен вход в Яндекс)</p></div><figure class="shot"><a href="dokazatelstva/ws_great_wall_poer.png" data-big="dokazatelstva/ws_great_wall_poer.png"><img src="dokazatelstva/ws_great_wall_poer.png" loading="lazy" alt=""></a><figcaption>Wordstat, Россия, 08.09–07.10.2026</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Запрос «запчасти poer» — <b>154</b> в месяц.</p><p class="mute">Запчасти «по названию машины» ищут мало.</p><p class="src"><a href="https://wordstat.yandex.ru/?region=225&amp;view=table&amp;words=%D0%B7%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8%20poer" target="_blank">открыть в Wordstat</a> (нужен вход в Яндекс)</p></div><figure class="shot"><a href="dokazatelstva/ws_zapchasti_poer.png" data-big="dokazatelstva/ws_zapchasti_poer.png"><img src="dokazatelstva/ws_zapchasti_poer.png" loading="lazy" alt=""></a><figcaption>Wordstat, Россия, 08.09–07.10.2026</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Запрос «запчасти haval» — <b>3 697</b> в месяц.</p><p class="mute">Для сравнения: по Haval — в 24 раза больше.</p><p class="src"><a href="https://wordstat.yandex.ru/?region=225&amp;view=table&amp;words=%D0%B7%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8%20haval" target="_blank">открыть в Wordstat</a> (нужен вход в Яндекс)</p></div><figure class="shot"><a href="dokazatelstva/ws_zapchasti_haval.png" data-big="dokazatelstva/ws_zapchasti_haval.png"><img src="dokazatelstva/ws_zapchasti_haval.png" loading="lazy" alt=""></a><figcaption>Wordstat, Россия, 08.09–07.10.2026</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Запрос «poer фильтр» — <b>938</b> в месяц.</p><p class="mute">Чаще всего ищут топливный фильтр.</p><p class="src"><a href="https://wordstat.yandex.ru/?region=225&amp;view=table&amp;words=poer%20%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80" target="_blank">открыть в Wordstat</a> (нужен вход в Яндекс)</p></div><figure class="shot"><a href="dokazatelstva/ws_poer_filtr.png" data-big="dokazatelstva/ws_poer_filtr.png"><img src="dokazatelstva/ws_poer_filtr.png" loading="lazy" alt=""></a><figcaption>Wordstat, Россия, 08.09–07.10.2026</figcaption></figure></div>
+<div class="card fact"><div class="fact-text"><p>Запрос «gw4d20m (название дизеля)» — <b>1 299</b> в месяц.</p><p class="mute">Со словом «купить» — всего 24.</p><p class="src"><a href="https://wordstat.yandex.ru/?region=225&amp;view=table&amp;words=gw4d20m" target="_blank">открыть в Wordstat</a> (нужен вход в Яндекс)</p></div><figure class="shot"><a href="dokazatelstva/ws_gw4d20m.png" data-big="dokazatelstva/ws_gw4d20m.png"><img src="dokazatelstva/ws_gw4d20m.png" loading="lazy" alt=""></a><figcaption>Wordstat, Россия, 08.09–07.10.2026</figcaption></figure></div>
+<div class="card"><p class="mute" style="margin:0">Что это значит: по названию машины запчасти ищут мало. Их ищут по номеру детали — на zzap, Ozon, WB. Поэтому дальше смотрим, сколько продавцов по каждому номеру.</p></div>
+
+<h2>4. Какие детали брать в тест</h2>
+<p>Правило простое: <b>деталь выгодна, если Чжан даёт цену, с которой мы продадим дешевле самого дешёвого продавца и ещё заработаем</b>. Самые дешёвые сейчас — китайцы на Ozon и WB. Поэтому для каждой детали ниже — цены в трёх местах и снимки.</p>
+
+<h3 style="margin-top:20px">Кандидаты №1 — на маркетплейсах их нет</h3>
+
+<div class="card part">
+ <div class="part-head"><a href="vhod/foto/19.png" data-big="vhod/foto/19.png"><img class="foto" src="vhod/foto/19.png" loading="lazy" alt=""></a><div><h3>№19. Вакуумный насос</h3><div class="mono">3541100XED61</div>
+ <p>Создаёт разрежение (как пылесос), которое помогает водителю жать на тормоз. У дизеля своего разрежения нет, поэтому нужен такой насос.</p></div></div>
+ <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
+ <tr><td>Магазины в России (zzap.ru)</td><td>в наличии: <b>3 продавца</b> · 4 500–22 000 ₽<br><span class="mute">под заказ: 47 продавцов · 3 894–26 911 ₽</span></td>
+  <td><figure class="shot"><a href="dokazatelstva/zzap_3541100XED61.png" data-big="dokazatelstva/zzap_3541100XED61.png"><img src="dokazatelstva/zzap_3541100XED61.png" loading="lazy" alt=""></a><figcaption><a href="https://www.zzap.ru/public/search.aspx#rawdata=3541100XED61&amp;class_man=GREAT%20WALL" target="_blank">открыть zzap</a></figcaption></figure></td></tr>
+ <tr><td>Ozon</td><td><b>Нашей детали нет.</b> По номеру нашлась одна карточка, и та — другой, электрический насос для Haval (3 933 ₽).</td><td><figure class="shot"><a href="dokazatelstva/ozon_3541100XED61.png" data-big="dokazatelstva/ozon_3541100XED61.png"><img src="dokazatelstva/ozon_3541100XED61.png" loading="lazy" alt=""></a><figcaption><a href="https://www.ozon.ru/search/?text=3541100XED61&amp;sorting=price" target="_blank">открыть Ozon</a></figcaption></figure></td></tr>
+ <tr><td>Wildberries</td><td>2 карточки из-за границы: 7 556 и 7 926 ₽.</td><td><figure class="shot"><a href="dokazatelstva/wb_3541100XED61.png" data-big="dokazatelstva/wb_3541100XED61.png"><img src="dokazatelstva/wb_3541100XED61.png" loading="lazy" alt=""></a><figcaption><a href="https://www.wildberries.ru/catalog/0/search.aspx?search=3541100XED61&amp;sort=priceup" target="_blank">открыть WB</a></figcaption></figure></td></tr>
+ </table>
+ <p class="verdict"><b>Вывод:</b> Свободное место: в наличии в России всего 3 продавца, на Ozon детали нет. Брать первым, если цена Чжана позволяет продавать дешевле 7 500 ₽ (дешевле, чем китайцы на WB).</p>
+</div>
+
+<div class="card part">
+ <div class="part-head"><a href="vhod/foto/53.png" data-big="vhod/foto/53.png"><img class="foto" src="vhod/foto/53.png" loading="lazy" alt=""></a><div><h3>№53. Задний амортизатор</h3><div class="mono">2915100XPW01A</div>
+ <p>Гасит раскачку задней части машины на кочках. Меняют парой (2 шт.), чаще у тех, кто возит груз.</p></div></div>
+ <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
+ <tr><td>Магазины в России (zzap.ru)</td><td>в наличии: <b>2 продавца</b> · 5 000 ₽<br><span class="mute">под заказ: 31 продавец · 6 924–24 130 ₽</span></td>
+  <td><figure class="shot"><a href="dokazatelstva/zzap_2915100XPW01A.png" data-big="dokazatelstva/zzap_2915100XPW01A.png"><img src="dokazatelstva/zzap_2915100XPW01A.png" loading="lazy" alt=""></a><figcaption><a href="https://www.zzap.ru/public/search.aspx#rawdata=2915100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">открыть zzap</a></figcaption></figure></td></tr>
+ <tr><td>Ozon</td><td><b>Нашей детали нет.</b> По номеру Ozon показывает только проставки для увеличения клиренса на Tank и Haval — это другой товар.</td><td><figure class="shot"><a href="dokazatelstva/ozon_2915100XPW01A.png" data-big="dokazatelstva/ozon_2915100XPW01A.png"><img src="dokazatelstva/ozon_2915100XPW01A.png" loading="lazy" alt=""></a><figcaption><a href="https://www.ozon.ru/search/?text=2915100XPW01A&amp;sorting=price" target="_blank">открыть Ozon</a></figcaption></figure></td></tr>
+ <tr><td>Wildberries</td><td>Нет: по номеру WB показывает посторонние товары.</td><td><figure class="shot"><a href="dokazatelstva/wb_2915100XPW01A.png" data-big="dokazatelstva/wb_2915100XPW01A.png"><img src="dokazatelstva/wb_2915100XPW01A.png" loading="lazy" alt=""></a><figcaption><a href="https://www.wildberries.ru/catalog/0/search.aspx?search=2915100XPW01A&amp;sort=priceup" target="_blank">открыть WB</a></figcaption></figure></td></tr>
+ </table>
+ <p class="verdict"><b>Вывод:</b> Свободное место: в наличии в России 2 продавца по 5 000 ₽, на маркетплейсах детали нет. Брать первым, если цена Чжана с доставкой заметно ниже 5 000 ₽ за штуку.</p>
+</div>
+
+<h3 style="margin-top:20px">Кандидаты, если цена Чжана ниже китайцев</h3>
+
+<div class="card part">
+ <div class="part-head"><a href="vhod/foto/08.png" data-big="vhod/foto/08.png"><img class="foto" src="vhod/foto/08.png" loading="lazy" alt=""></a><div><h3>№8. ТНВД (топливный насос высокого давления)</h3><div class="mono">1111100XED61</div>
+ <p>Качает дизельное топливо в двигатель под очень высоким давлением. Самая дорогая деталь топливной системы.</p></div></div>
+ <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
+ <tr><td>Магазины в России (zzap.ru)</td><td>в наличии: <b>3 продавца</b> · 57 000–70 000 ₽<br><span class="mute">под заказ: 65 продавцов · 39 030–229 477 ₽</span></td>
+  <td><figure class="shot"><a href="dokazatelstva/zzap_1111100XED61.png" data-big="dokazatelstva/zzap_1111100XED61.png"><img src="dokazatelstva/zzap_1111100XED61.png" loading="lazy" alt=""></a><figcaption><a href="https://www.zzap.ru/public/search.aspx#rawdata=1111100XED61&amp;class_man=GREAT%20WALL" target="_blank">открыть zzap</a></figcaption></figure></td></tr>
+ <tr><td>Ozon</td><td>От <b>20 331 ₽</b>, весь разброс 20 391–68 042 ₽. Доставка через 2–4 недели — товар едет из Китая.</td><td><figure class="shot"><a href="dokazatelstva/ozon_1111100XED61.png" data-big="dokazatelstva/ozon_1111100XED61.png"><img src="dokazatelstva/ozon_1111100XED61.png" loading="lazy" alt=""></a><figcaption><a href="https://www.ozon.ru/search/?text=1111100XED61&amp;sorting=price" target="_blank">открыть Ozon</a></figcaption></figure></td></tr>
+ <tr><td>Wildberries</td><td>От 29 975 ₽, карточки с пометкой «AliExpress».</td><td><figure class="shot"><a href="dokazatelstva/wb_1111100XED61.png" data-big="dokazatelstva/wb_1111100XED61.png"><img src="dokazatelstva/wb_1111100XED61.png" loading="lazy" alt=""></a><figcaption><a href="https://www.wildberries.ru/catalog/0/search.aspx?search=1111100XED61&amp;sort=priceup" target="_blank">открыть WB</a></figcaption></figure></td></tr>
+ </table>
+ <p class="verdict"><b>Вывод:</b> Китайские продавцы уже продают его в 3 раза дешевле, чем магазины в России (57 000–70 000 ₽). Брать, только если цена Чжана с доставкой и пошлиной позволяет продавать примерно за 20 000 ₽ и ещё зарабатывать.</p>
+</div>
+
+<div class="card part">
+ <div class="part-head"><a href="vhod/foto/66.png" data-big="vhod/foto/66.png"><img class="foto" src="vhod/foto/66.png" loading="lazy" alt=""></a><div><h3>№66. Форсунка дизельная</h3><div class="mono">1100100XED95</div>
+ <p>Впрыскивает топливо в цилиндр. На двигателе их 4, часто меняют комплектом.</p></div></div>
+ <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
+ <tr><td>Магазины в России (zzap.ru)</td><td>в наличии: <b>9 продавцов</b> · 13 900–23 820 ₽<br><span class="mute">под заказ: 320 продавцов · 7 007–55 626 ₽</span></td>
+  <td><figure class="shot"><a href="dokazatelstva/zzap_1100100XED95.png" data-big="dokazatelstva/zzap_1100100XED95.png"><img src="dokazatelstva/zzap_1100100XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.zzap.ru/public/search.aspx#rawdata=1100100XED95&amp;class_man=GREAT%20WALL" target="_blank">открыть zzap</a></figcaption></figure></td></tr>
+ <tr><td>Ozon</td><td>От <b>4 826 ₽</b>, весь разброс 4 841–33 955 ₽.</td><td><figure class="shot"><a href="dokazatelstva/ozon_1100100XED95.png" data-big="dokazatelstva/ozon_1100100XED95.png"><img src="dokazatelstva/ozon_1100100XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.ozon.ru/search/?text=1100100XED95&amp;sorting=price" target="_blank">открыть Ozon</a></figcaption></figure></td></tr>
+ <tr><td>Wildberries</td><td>Форсунки от 7 301 ₽ (самая дешёвая карточка за 3 562 ₽ — это клапан, не форсунка), с пометкой «Скидки без границ».</td><td><figure class="shot"><a href="dokazatelstva/wb_1100100XED95.png" data-big="dokazatelstva/wb_1100100XED95.png"><img src="dokazatelstva/wb_1100100XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.wildberries.ru/catalog/0/search.aspx?search=1100100XED95&amp;sort=priceup" target="_blank">открыть WB</a></figcaption></figure></td></tr>
+ </table>
+ <p class="verdict"><b>Вывод:</b> То же, что с ТНВД: китайцы на Ozon продают в 3 раза дешевле российских магазинов (13 900–23 820 ₽). Брать, только если цена Чжана заметно ниже 4 800 ₽ за штуку.</p>
+</div>
+
+<div class="card part">
+ <div class="part-head"><a href="vhod/foto/40.png" data-big="vhod/foto/40.png"><img class="foto" src="vhod/foto/40.png" loading="lazy" alt=""></a><div><h3>№40. Топливная рампа</h3><div class="mono">1100200XED95</div>
+ <p>Металлическая трубка-«распределитель»: из неё топливо под давлением идёт ко всем 4 форсункам.</p></div></div>
+ <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
+ <tr><td>Магазины в России (zzap.ru)</td><td>в наличии: <b>0 продавцов</b><br><span class="mute">под заказ: 41 продавец · 5 999–64 463 ₽</span></td>
+  <td><figure class="shot"><a href="dokazatelstva/zzap_1100200XED95.png" data-big="dokazatelstva/zzap_1100200XED95.png"><img src="dokazatelstva/zzap_1100200XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.zzap.ru/public/search.aspx#rawdata=1100200XED95&amp;class_man=GREAT%20WALL" target="_blank">открыть zzap</a></figcaption></figure></td></tr>
+ <tr><td>Ozon</td><td>От <b>9 801 ₽</b>, весь разброс 9 803–29 664 ₽.</td><td><figure class="shot"><a href="dokazatelstva/ozon_1100200XED95.png" data-big="dokazatelstva/ozon_1100200XED95.png"><img src="dokazatelstva/ozon_1100200XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.ozon.ru/search/?text=1100200XED95&amp;sorting=price" target="_blank">открыть Ozon</a></figcaption></figure></td></tr>
+ <tr><td>Wildberries</td><td>7 карточек, 7 890–19 976 ₽, все с пометкой «Скидки без границ».</td><td><figure class="shot"><a href="dokazatelstva/wb_1100200XED95.png" data-big="dokazatelstva/wb_1100200XED95.png"><img src="dokazatelstva/wb_1100200XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.wildberries.ru/catalog/0/search.aspx?search=1100200XED95&amp;sort=priceup" target="_blank">открыть WB</a></figcaption></figure></td></tr>
+ </table>
+ <p class="verdict"><b>Вывод:</b> В российских магазинах в наличии её нет ни у кого (только под заказ, 5 999–64 463 ₽). Но китайцы на WB продают от 7 890 ₽. Брать, если цена Чжана позволяет продавать дешевле 7 900 ₽.</p>
+</div>
+
+<div class="card part">
+ <div class="part-head"><a href="vhod/foto/12.png" data-big="vhod/foto/12.png"><img class="foto" src="vhod/foto/12.png" loading="lazy" alt=""></a><div><h3>№12. Помпа (водяной насос)</h3><div class="mono">1307100XED95</div>
+ <p>Гоняет охлаждающую жидкость по двигателю, чтобы он не перегрелся.</p></div></div>
+ <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
+ <tr><td>Магазины в России (zzap.ru)</td><td>в наличии: <b>2 продавца</b> · 10 000–16 492 ₽<br><span class="mute">под заказ: 213 продавцов · 4 901–26 239 ₽</span></td>
+  <td><figure class="shot"><a href="dokazatelstva/zzap_1307100XED95.png" data-big="dokazatelstva/zzap_1307100XED95.png"><img src="dokazatelstva/zzap_1307100XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.zzap.ru/public/search.aspx#rawdata=1307100XED95&amp;class_man=GREAT%20WALL" target="_blank">открыть zzap</a></figcaption></figure></td></tr>
+ <tr><td>Ozon</td><td>От <b>4 264 ₽</b>, весь разброс 4 359–11 903 ₽. Самые дешёвые — фирмы Gates (это аналог, не оригинал).</td><td><figure class="shot"><a href="dokazatelstva/ozon_1307100XED95.png" data-big="dokazatelstva/ozon_1307100XED95.png"><img src="dokazatelstva/ozon_1307100XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.ozon.ru/search/?text=1307100XED95&amp;sorting=price" target="_blank">открыть Ozon</a></figcaption></figure></td></tr>
+ <tr><td>Wildberries</td><td>7 карточек, 7 317–10 245 ₽.</td><td><figure class="shot"><a href="dokazatelstva/wb_1307100XED95.png" data-big="dokazatelstva/wb_1307100XED95.png"><img src="dokazatelstva/wb_1307100XED95.png" loading="lazy" alt=""></a><figcaption><a href="https://www.wildberries.ru/catalog/0/search.aspx?search=1307100XED95&amp;sort=priceup" target="_blank">открыть WB</a></figcaption></figure></td></tr>
+ </table>
+ <p class="verdict"><b>Вывод:</b> Аналоги уже продают от 4 264 ₽. Брать, только если у Чжана оригинал по цене ниже 4 300 ₽ или очень дешёвый аналог.</p>
+</div>
+
 <div class="card">
-<ul>
-<li><b>Продажи Poer:</b> старт в России — июнь 2021. За 2023 год — 2 937 шт. За январь–сентябрь 2024 года — 4 900 вместе с Kingkong. За первую половину 2025 года — 1 165 шт. (падение на 53%). Дизельных Poer за весь 2025 год — 1 938.</li>
-<li><b>Двигатели:</b> 2021–2024 — дизель 2.0 GW4D20M, 150 л.с. С марта 2025 года — дизель 2.4 и бензин 2.0T. По версии 2026 года с дизелем 2.0 источники расходятся.</li>
-<li><b>Kingkong:</b> продавался с 2023 года. В мае 2024 года поставки новых машин остановили, а сервис и запчасти у дилеров остались.</li>
-<li><b>Что ломается (форумы):</b> сажевый фильтр в городе, шум турбины, скрип рессор. Кузовные детали ждут месяцами. Массовых жалоб на ТНВД и форсунки не нашла.</li>
-<li><b>Главный конкурент — сам GWM.</b> У него склад в Клину: 42 тыс. м², больше 35 тыс. наименований. Плюс перекупщики на emex и zzap, сети «китайских запчастей».</li>
-<li><b>Цены растут:</b> с января по май 2026 года базовые запчасти подорожали на 20–40%.</li>
-</ul>
-<p class="mute">Источники: <a href="https://iz.ru/1639745/2024-01-25/kitaiskaia-marka-operedila-uaz-po-prodazham-pikapov-v-rossii">iz.ru</a>,
-<a href="https://www.autonews.ru/news/671a07019a79476c2a784713">autonews 2024</a>, <a href="https://www.zr.ru/content/news/970509-nazvany-samye-populyarnye-pikap/">zr.ru 2025</a>,
-<a href="https://www.autonews.ru/news/6a43b8509a794791e07d6e81">autonews 2026</a>, <a href="https://auto.ru/mag/article/postavki-pikapov-great-wall-kingkong-poer-v-rossiyu-prekrashcheny/">auto.ru (Kingkong)</a>,
-<a href="https://auto.ru/mag/article/v-rossii-nachalis-prodazhi-pikapa-great-wall-poer-s-novymi-motorami/">auto.ru (моторы 2025)</a>, <a href="https://www.autonews.ru/news/6a4b9ba89a7947f5e08fc594">склад GWM</a>,
-<a href="https://www.zr.ru/content/news/982387-mashina-stala-roskoshyu-pochemu/">рост цен</a>, <a href="https://www.drive2.ru/experience/greatwall/g6075">drive2</a>.</p>
+<p style="margin-top:0"><b>Почему не в тесте сцепление и опоры двигателя.</b> Сцепление и всё для него нужно только машинам с механической коробкой. Первые Poer продавались только с автоматом (снимок kolesa.ru в разделе 2), механика появилась в 2026 году. Таких машин мало.
+Опоры двигателя на Ozon уже продают 3–6 карточек от 3 518 ₽ — <a href="dokazatelstva/ozon_1001200XP6PXA.png" data-big="dokazatelstva/ozon_1001200XP6PXA.png">снимок Ozon, правая</a> · <a href="dokazatelstva/ozon_1001100XP6PXA.png" data-big="dokazatelstva/ozon_1001100XP6PXA.png">левая</a> · <a href="dokazatelstva/ozon_1601002XPW01A.png" data-big="dokazatelstva/ozon_1601002XPW01A.png">сцепление на Ozon</a>.</p>
 </div>
 
-<h3>Ozon, Wildberries, Авито (проверено в Chrome 16.10.2026, поиск по номеру OE)</h3>
-<div class="card">
-<ul>
-<li><b>ТНВД 1111100XED61:</b> Ozon — 22 карточки, 20–70 тыс. ₽, больше половины около 20–31 тыс. (китайские продавцы). WB — 29–83 тыс., чаще 45–50 тыс., с пометкой «Скидки без границ» (товар из-за границы). Авито — новые 53–65 тыс., б/у 25 тыс.</li>
-<li><b>Форсунка 1100100XED95:</b> Ozon — 16 карточек, 5,3–21 тыс. ₽, чаще 5–11 тыс. WB — 7–35 тыс., комплект из 4 шт. 30–63 тыс.</li>
-<li><b>Рампа 1100200XED95:</b> Ozon — 15 карточек, 10–30 тыс. ₽.</li>
-<li><b>Помпа 1307100XED95:</b> Ozon — 22 карточки, 4,3–17 тыс. ₽, чаще 4,5–6 тыс.</li>
-<li><b>Задний амортизатор 2915100XPW01A:</b> Ozon — около 12 карточек, 7,9–10,4 тыс. ₽.</li>
-<li><b>Сцепление 1601002XPW01A:</b> Ozon — 3 карточки, 23–32 тыс. ₽. <b>Опора двигателя 1001100XP6PXA:</b> 3 карточки, 5–7,8 тыс. ₽.</li>
-<li><b>Вакуумный насос 3541100XED61:</b> на Ozon точных совпадений почти нет (одна карточка около 4 тыс. — надо сверить).</li>
-</ul>
-<p class="mute" style="margin-bottom:0"><b>Вывод:</b> на маркетплейсах китайские продавцы уже работают напрямую и ставят цены ниже emex и zzap в 2–3 раза. Конкурировать надо с ними, а не с emex.
-Цены Ozon — на карточках в выдаче. Число карточек примерное: в выдачу попадают и похожие товары.</p>
-<p class="mute" style="margin-bottom:0">Источники: <a href="https://www.ozon.ru/search/?text=1111100XED61">Ozon ТНВД</a>, <a href="https://www.ozon.ru/search/?text=1100100XED95">Ozon форсунка</a>,
-<a href="https://www.ozon.ru/search/?text=1100200XED95">Ozon рампа</a>, <a href="https://www.ozon.ru/search/?text=1307100XED95">Ozon помпа</a>,
-<a href="https://www.ozon.ru/search/?text=2915100XPW01A">Ozon амортизатор</a>, <a href="https://www.ozon.ru/search/?text=1601002XPW01A">Ozon сцепление</a>,
-<a href="https://www.ozon.ru/search/?text=1001100XP6PXA">Ozon опора</a>, <a href="https://www.ozon.ru/search/?text=3541100XED61">Ozon вакуумный насос</a>,
-<a href="https://www.wildberries.ru/catalog/0/search.aspx?search=1111100XED61">WB ТНВД</a>, <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=1100100XED95">WB форсунка</a>,
-<a href="https://www.avito.ru/rossiya/zapchasti_i_aksessuary?q=1111100XED61">Авито ТНВД</a>.</p>
-</div>
-
-<h3>Ввоз: что важно знать заранее</h3>
-<div class="card">
-<ul>
-<li><b>Пошлина</b> на большинство запчастей — около 5%, плюс НДС на ввоз 22%. Код товара (ТН ВЭД) надо сверять для каждой детали.</li>
-<li><b>Документы:</b> на фильтры и тормоза нужен сертификат или декларация ЕАЭС (техрегламент ТР ТС 018/2011). Точный список уточнять в органе по сертификации.</li>
-<li><b>«Честный знак»</b> (обязательная цифровая маркировка): масла — уже обязательно. Фильтры, колодки, диски — пока эксперимент до 28.02.2027, потом станет обязательно.</li>
-<li><b>Доставка:</b> карго через Казахстан — 15–25 дней, примерно $2,5–5,5 за кг. С июля 2026 года доставка подорожала на 15–25%. «Белый» ввоз на юрлицо или ИП (с декларацией и НДС) по цене почти сравнялся с карго и безопаснее.</li>
-</ul>
-<p class="mute">Источники: <a href="https://www.ifcg.ru/en/kb/tnved/8708291000/">пошлина</a>, <a href="https://kontur.ru/markirovka/spravka/55894-obyazatelnaya_markirovka_avtozapchastey">Контур, маркировка</a>,
-<a href="https://uniseller.io/blog/kargo-iz-kitaya-2026-belaya-dostavka/">карго 2026</a>, <a href="https://novayagazeta.eu/articles/2026/07/15/dostavka-gruzov-iz-kitaia-v-rossiiu-podorozhala-na-chetvert-iz-za-toplivnogo-krizisa-news">подорожание доставки</a>.</p>
-</div>
-
-<h2>3. Что брать первым в тест</h2>
-<div class="card key">
-<p style="margin-top:0"><b>Пробная партия — 8 позиций</b> по 2–5 шт. каждой, всё для дизеля 2.0 (Poer 2021–2024):</p>
-<ol>
-<li><b>ТНВД</b> 1111100XED61 — в России 57–70 тыс. ₽, в наличии у 3 продавцов</li>
-<li><b>Форсунка дизельная</b> 1100100XED95 — 14–33 тыс. ₽, берут сразу по 4 шт. на машину</li>
-<li><b>Топливная рампа</b> 1100200XED95 — в наличии нет ни у кого, под заказ около 40 тыс. ₽</li>
-<li><b>Вакуумный насос</b> 3541100XED61 — до 22 тыс. ₽, аналогов нет</li>
-<li><b>Помпа</b> 1307100XED95 — 7–19 тыс. ₽, в наличии у 2 продавцов</li>
-<li><b>Комплект сцепления</b> 1601002XPW01A — 16–37 тыс. ₽, всего 7 предложений</li>
-<li><b>Задний амортизатор</b> 2915100XPW01A — 7–30 тыс. ₽, аналогов нет</li>
-<li><b>Опоры двигателя</b> 1001100/1001200XP6PXA — мало предложений</li>
-</ol>
-<p><b>Довеском в ту же посылку</b> (дёшево, лёгкое, всегда нужно на ТО): элемент топливного фильтра, масляный фильтр, втулки рессор и стабилизатора, ремень генератора, задние колодки.</p>
-<p><b>Правило теста:</b> сравниваем цену Чжана с доставкой и пошлиной с самой низкой ценой на Ozon (там продают китайцы напрямую). Берём позицию, если с ценой «как у китайцев на Ozon», но с наличием в России, остаётся прибыль 25–30%. Деталь, где этого не выходит, не берём.</p>
-<p class="mute" style="margin-bottom:0"><b>Не брать сейчас:</b> форсунку мочевины (34), передний амортизатор XPW04A (52), «маховик» 46 (номер похож на коленвал), набор ГРМ Gates (20, чужой бренд), набор прокладок без номера (1).
-Рессору (22) — позже: она тяжёлая, доставка съест разницу.</p>
-</div>
-
-<h2>4. Все 66 позиций</h2>
-<p class="mute">Цена — в рублях, оригинал, Москва (emex + zzap), 16.10.2026. «Предложений» — сколько продавцов на zzap: в наличии / под заказ. Серые строки ещё не проверяли: на них цены надо добрать вторым кругом.</p>
+<h2>5. Все 66 позиций</h2>
+<p class="mute">Фото — из списка Чжана. Колонка «Россия» — табличка «Найдено» с zzap.ru, Москва и область, 16.10.2026. Ссылка «снимок» открывает эту табличку. Серые строки ещё не проверяли.</p>
 <div class="filters" id="f">
  <button data-v="all" class="on">все (66)</button>
- <button data-v="t">в тест (9)</button>
- <button data-v="z">позже / под заказ (6)</button>
+ <button data-v="t">кандидаты №1 (2)</button>
+ <button data-v="t2">кандидаты при цене (4)</button>
+ <button data-v="z">позже (9)</button>
  <button data-v="d">добавка (13)</button>
  <button data-v="n">не брать / выяснить (5)</button>
  <button data-v="u">не проверяли (33)</button>
 </div>
 <div class="tbl">
-<table>
-<thead><tr><th>№</th><th>OE</th><th>Деталь</th><th>Машина</th><th>Цена в РФ, ₽</th><th>Предложений</th><th>Решение</th><th>Заметка</th><th>Источник</th></tr></thead>
+<table class="big">
+<thead><tr><th>№</th><th>Фото</th><th>Деталь</th><th>Россия (zzap), ₽</th><th>Решение</th><th>Почему</th><th>Доказательство</th></tr></thead>
 <tbody id="tb">
-<tr class="v-n"><td>1</td><td class="mono">—</td><td>Комплект прокладок для капремонта двигателя</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag n">не брать / выяснить</span></td><td>Нет номера OE. Спросить номер и для какого мотора</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-d"><td>2</td><td class="mono">2906101XKV3AA</td><td>Втулка переднего стабилизатора</td><td>Kingkong</td><td>205–500</td><td>5 / 162</td><td><span class="tag d">добавка к заказу</span></td><td>Копеечная деталь</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2906101XKV3AA/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2906101XKV3AA&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>3</td><td class="mono">2906604XGW04A</td><td>Стойка стабилизатора правая</td><td>Kingkong</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-d"><td>4</td><td class="mono">2906104XPW01A</td><td>Стойка стабилизатора правая</td><td>Poer</td><td>500–3 000</td><td>14 / 298</td><td><span class="tag d">добавка к заказу</span></td><td>7 брендов-аналогов</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2906104XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2906104XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>5</td><td class="mono">3701011XED95</td><td>Ремень генератора</td><td>Poer</td><td>1 690–2 333</td><td>3 / 161</td><td><span class="tag d">добавка к заказу</span></td><td>Обычный ремень 6PK1144, аналог от 400 ₽</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3701011XED95/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3701011XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>6</td><td class="mono">3701200XED61</td><td>Натяжной ролик ремня</td><td>Poer</td><td>2 500–8 500</td><td>10 / 306</td><td><span class="tag d">добавка к заказу</span></td><td>8 аналогов</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3701200XED61/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3701200XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>7</td><td class="mono">30*92</td><td>Крестовина карданного вала</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Указан размер, а не OE</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-t"><td>8</td><td class="mono">1111100XED61</td><td>ТНВД (насос высокого давления топлива)</td><td>Poer</td><td>57 000–70 000 в наличии; заказ до 229 000</td><td>3 / 65</td><td><span class="tag t">в тест</span></td><td>Ozon: 22 карточки, 20–70 тыс. (китайцы от 20 тыс.); WB 29–83 тыс.; Авито 53–65 тыс.</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1111100XED61/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1111100XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>9</td><td class="mono">1111400XED95</td><td>Топливный фильтр в сборе</td><td>Poer</td><td>4 175–7 813</td><td>5 / 336</td><td><span class="tag d">добавка к заказу</span></td><td>Сверить: узел или только элемент</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1111400XED95/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1111400XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>10</td><td class="mono">1111400XED96</td><td>Топливный фильтр в сборе</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Другая версия мотора (ED96)</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-d"><td>11</td><td class="mono">1111402XED96</td><td>Элемент топливного фильтра</td><td>Poer</td><td>1 215–5 150</td><td>38 / 528</td><td><span class="tag d">добавка к заказу</span></td><td>Ходовой, меняют на каждом ТО</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1111402XED96/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1111402XED96&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-t"><td>12</td><td class="mono">1307100XED95</td><td>Водяной насос (помпа)</td><td>Poer</td><td>7 000–19 300</td><td>2 / 211</td><td><span class="tag t">в тест</span></td><td>Ozon: 22 карточки, 4,3–17 тыс., чаще 4,5–6 тыс.</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1307100XED95/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1307100XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-z"><td>13</td><td class="mono">2904109XPW01A</td><td>Шаровая опора нижняя</td><td>Poer</td><td>1 750–7 080</td><td>5 / 161</td><td><span class="tag z">позже / под заказ</span></td><td>Аналогов мало</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2904109XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2904109XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>14</td><td class="mono">2912106XPW01A</td><td>Втулка рессоры</td><td>Poer</td><td>200–418</td><td>2 / 228</td><td><span class="tag d">добавка к заказу</span></td><td>Копейки, но жалобы на скрип рессор</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2912106XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2912106XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>15</td><td class="mono">2912107XPW01A</td><td>Втулка рессоры</td><td>Poer</td><td>80–180</td><td>0 / 132</td><td><span class="tag d">добавка к заказу</span></td><td>В наличии ни у кого</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2912107XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2912107XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>16</td><td class="mono">3404102XPW01A</td><td>Нижний рулевой карданчик</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>17</td><td class="mono">3407011XED95</td><td>Ремень насоса ГУР</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>18</td><td class="mono">3407101APW01A</td><td>Насос ГУР (гидроусилителя руля)</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-t"><td>19</td><td class="mono">3541100XED61</td><td>Вакуумный насос</td><td>Poer</td><td>4 500–22 000; заказ до 38 700</td><td>3 / 47</td><td><span class="tag t">в тест</span></td><td>Ozon: ~1 карточка ~4 тыс. — сверить</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3541100XED61/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3541100XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-n"><td>20</td><td class="mono">K0120554</td><td>Комплект ГРМ (это номер Gates)</td><td>Poer</td><td>7 400–20 900</td><td>6 / 154</td><td><span class="tag n">не брать / выяснить</span></td><td>Чужой бренд Gates, ~700 замен: тесно</td><td style="white-space:nowrap"><a href="https://emex.ru/products/K0120554/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=K0120554&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>21</td><td class="mono">3401100XPW01A</td><td>Рулевой механизм</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Крупный и дорогой</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-z"><td>22</td><td class="mono">2912102XPW01A</td><td>Задняя рессора</td><td>Poer</td><td>12 000–13 500; заказ до 38 500</td><td>3 / 52</td><td><span class="tag z">позже / под заказ</span></td><td>Тяжёлая: доставка дорогая</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2912102XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2912102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>23</td><td class="mono">3401101XPW01A</td><td>Рулевой наконечник</td><td>Poer</td><td>700–5 200</td><td>9 / 328</td><td><span class="tag d">добавка к заказу</span></td><td></td><td style="white-space:nowrap"><a href="https://emex.ru/products/3401101XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3401101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>24</td><td class="mono">3105100XPW01A</td><td>Лебёдка запасного колеса</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>25</td><td class="mono">3103101XPW01A</td><td>Фланец передней ступицы</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-z"><td>26</td><td class="mono">3103100XPW01A</td><td>Подшипник (ступица) передний</td><td>Poer</td><td>1 490–11 275</td><td>13 / 308</td><td><span class="tag z">позже / под заказ</span></td><td>Аналоги от 2 000</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3103100XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3103100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>27</td><td class="mono">3001112XPW01A</td><td>Коническая втулка поворотного кулака</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>28</td><td class="mono">2912104XPW01A</td><td>U-образный болт (стремянка рессоры)</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>29</td><td class="mono">2200100XPW01A</td><td>Подвесной подшипник кардана</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>30</td><td class="mono">1703300XPW01A</td><td>Трос переключения передач</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Только для механики</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-z"><td>31</td><td class="mono">1608100XPW01A</td><td>Главный цилиндр сцепления</td><td>Poer</td><td>3 460–12 370</td><td>1 / 51</td><td><span class="tag z">позже / под заказ</span></td><td>Только для механики</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1608100XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1608100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>32</td><td class="mono">1607102XPW01A</td><td>Шланг сцепления</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>33</td><td class="mono">1607104XPW01A</td><td>Трубка сцепления</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-n"><td>34</td><td class="mono">1205145XPW01A</td><td>Форсунка мочевины (AdBlue)</td><td>Poer</td><td>только под заказ 53–63 дня: 12 800–18 400</td><td>0 / 0</td><td><span class="tag n">не брать / выяснить</span></td><td>В РФ почти нет машин с мочевиной</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1205145XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1205145XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>35</td><td class="mono">1132101APW01A</td><td>Патрубок воздушного фильтра</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>36</td><td class="mono">1130106XPW01A</td><td>Шланг адсорбера</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Бензиновая деталь?</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>37</td><td class="mono">1130110XKU88A</td><td>Клапан адсорбера</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Бензиновая деталь?</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>38</td><td class="mono">1119102XPW01A</td><td>Шланг интеркулера</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>39</td><td class="mono">1100900XED95</td><td>Обратные трубки топливной рампы</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-t"><td>40</td><td class="mono">1100200XED95</td><td>Топливная рампа</td><td>Poer</td><td>под заказ 6 000–64 000 (средняя ~40 000)</td><td>0 / 41</td><td><span class="tag t">в тест</span></td><td>Ozon: 15 карточек, 10–30 тыс. (на emex ~40 тыс.)</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1100200XED95/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1100200XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>41</td><td class="mono">1014220XED96</td><td>Шланги вентиляции картера</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>42</td><td class="mono">1014220XED95</td><td>Шланги вентиляции картера</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>43</td><td class="mono">1013100AED95</td><td>Масляный радиатор</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>44</td><td class="mono">1011100XED95</td><td>Масляный насос</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>45</td><td class="mono">1005100XED61</td><td>Коленчатый вал</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td>Редкая крупная деталь</td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-n"><td>46</td><td class="mono">1005101XPW01A</td><td>Двухмассовый маховик</td><td>Poer</td><td>51 000–54 000 (emex)</td><td>0 / 0</td><td><span class="tag n">не брать / выяснить</span></td><td>На zzap этот номер — «коленвал». Сверить с Чжаном</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1005101XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1005101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>47</td><td class="mono">1009300XED95</td><td>Нижний поддон картера</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>48</td><td class="mono">1008201XED95</td><td>Выпускной коллектор</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-t"><td>49</td><td class="mono">1601002XPW01A-YC-3</td><td>Комплект сцепления</td><td>Poer</td><td>16 200–22 500; заказ до 36 800</td><td>2 / 5</td><td><span class="tag t">в тест</span></td><td>Ozon: 3 карточки, 23–32 тыс.</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1601002XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1601002XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>50</td><td class="mono">1706100XPW01A</td><td>Опора коробки передач</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>51</td><td class="mono">2303101XPW01A</td><td>Передний правый привод</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-n"><td>52</td><td class="mono">2905100XPW04A</td><td>Передний амортизатор с пружиной</td><td>Poer</td><td>только под заказ 16 700–24 000</td><td>нет</td><td><span class="tag n">не брать / выяснить</span></td><td>Версия XPW04A в РФ почти не встречается</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2905100XPW04A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2905100XPW04A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-t"><td>53</td><td class="mono">2915100XPW01A</td><td>Задний амортизатор</td><td>Poer</td><td>6 900–29 750 (в наличии 1 шт.)</td><td>2 / 31</td><td><span class="tag t">в тест</span></td><td>Ozon: ~12 карточек, 7,9–10,4 тыс.</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2915100XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2915100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>54</td><td class="mono">3001103XPW01A</td><td>Правый передний поворотный кулак</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-u"><td>55</td><td class="mono">3103500XGW04A</td><td>Подшипник передней ступицы</td><td>Kingkong</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-z"><td>56</td><td class="mono">2904101XPW01A</td><td>Левый верхний рычаг</td><td>Poer</td><td>2 930–7 970</td><td>4 / 213</td><td><span class="tag z">позже / под заказ</span></td><td>5 аналогов</td><td style="white-space:nowrap"><a href="https://emex.ru/products/2904101XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2904101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>57</td><td class="mono">2303113XGW04A</td><td>Передний правый привод</td><td>Kingkong</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-t"><td>58</td><td class="mono">1001100XP6PXA</td><td>Опора двигателя левая</td><td>Poer</td><td>1 600–13 600</td><td>1 / 14</td><td><span class="tag t">в тест</span></td><td>Ozon: 3 карточки, 5–7,8 тыс.; на zzap подписан как Wingle 7</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1001100XP6PXA/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1001100XP6PXA&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-t"><td>59</td><td class="mono">1001200XP6PXA</td><td>Опора двигателя правая</td><td>Poer</td><td>2 150–7 950</td><td>3 / 26</td><td><span class="tag t">в тест</span></td><td>Мало предложений</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1001200XP6PXA/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1001200XP6PXA&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>60</td><td class="mono">1017110XED95</td><td>Масляный фильтр</td><td>Poer</td><td>140–2 500</td><td>62 / 525</td><td><span class="tag d">добавка к заказу</span></td><td>Самый ходовой; 19 брендов-аналогов</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1017110XED95/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1017110XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>61</td><td class="mono">3501104XPW01A</td><td>Передний тормозной диск</td><td>Poer</td><td>2 890–17 800</td><td>17 / 469</td><td><span class="tag d">добавка к заказу</span></td><td>33 аналога; подходит и к Tank 300</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3501104XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3501104XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-z"><td>62</td><td class="mono">3502102XPW01A</td><td>Задний тормозной диск</td><td>Poer</td><td>1 960–6 000</td><td>4 / 84</td><td><span class="tag z">позже / под заказ</span></td><td>Аналогов всего 3</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3502102XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3502102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>63</td><td class="mono">3501119XPW01A</td><td>Передние колодки</td><td>Poer</td><td>1 000–8 370</td><td>27 / 420</td><td><span class="tag d">добавка к заказу</span></td><td>54 бренда-аналога</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3501119XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3501119XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-d"><td>64</td><td class="mono">3502139XPW01A</td><td>Задние колодки</td><td>Poer</td><td>750–6 400</td><td>10 / 309</td><td><span class="tag d">добавка к заказу</span></td><td>26 брендов-аналогов</td><td style="white-space:nowrap"><a href="https://emex.ru/products/3502139XPW01A/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3502139XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
-<tr class="v-u"><td>65</td><td class="mono">2904100XPW01A</td><td>Шаровая опора верхняя</td><td>Poer</td><td>—</td><td>—</td><td><span class="tag u">не проверяли</span></td><td></td><td style="white-space:nowrap"><span class="mute">—</span></td></tr>
-<tr class="v-t"><td>66</td><td class="mono">1100100XED95</td><td>Форсунка дизельная</td><td>Poer</td><td>13 900–33 400</td><td>9 / 316</td><td><span class="tag t">в тест</span></td><td>Ozon: 16 карточек, 5–21 тыс.; WB 7–35 тыс. — китайцы уже дешевле emex</td><td style="white-space:nowrap"><a href="https://emex.ru/products/1100100XED95/Great%20Wall/10797" target="_blank">emex</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1100100XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-n"><td>1</td><td><a href="vhod/foto/01.png" data-big="vhod/foto/01.png"><img class="foto" src="vhod/foto/01.png" loading="lazy" alt=""></a></td><td><b>Комплект прокладок для капремонта двигателя</b><br><span class="mono">—</span> · Poer</td><td><span class="mute">нет номера</span></td><td><span class="tag n">не брать / выяснить</span></td><td>Нет номера — не по чему искать. Спросить номер.</td><td class="nw"></td></tr>
+<tr class="v-d"><td>2</td><td><a href="vhod/foto/02.png" data-big="vhod/foto/02.png"><img class="foto" src="vhod/foto/02.png" loading="lazy" alt=""></a></td><td><b>Втулка переднего стабилизатора</b><br><span class="mono">2906101XKV3AA</span> · Kingkong</td><td>в наличии: <b>5 продавцов</b> · 205–500 ₽<br><span class="mute">под заказ: 161 продавец · 207–1 214 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>Резиновая втулка, копеечная.</td><td class="nw"><a href="dokazatelstva/zzap_2906101XKV3AA.png" data-big="dokazatelstva/zzap_2906101XKV3AA.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2906101XKV3AA&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>3</td><td><a href="vhod/foto/03.png" data-big="vhod/foto/03.png"><img class="foto" src="vhod/foto/03.png" loading="lazy" alt=""></a></td><td><b>Стойка стабилизатора правая</b><br><span class="mono">2906604XGW04A</span> · Kingkong</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=2906604XGW04A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>4</td><td><a href="vhod/foto/04.png" data-big="vhod/foto/04.png"><img class="foto" src="vhod/foto/04.png" loading="lazy" alt=""></a></td><td><b>Стойка стабилизатора правая</b><br><span class="mono">2906104XPW01A</span> · Poer</td><td>в наличии: <b>14 продавцов</b> · 500–3 000 ₽<br><span class="mute">под заказ: 301 продавец · 550–7 832 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>14 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_2906104XPW01A.png" data-big="dokazatelstva/zzap_2906104XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2906104XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>5</td><td><a href="vhod/foto/05.png" data-big="vhod/foto/05.png"><img class="foto" src="vhod/foto/05.png" loading="lazy" alt=""></a></td><td><b>Ремень генератора</b><br><span class="mono">3701011XED95</span> · Poer</td><td>в наличии: <b>3 продавца</b> · 1 690–1 800 ₽<br><span class="mute">под заказ: 163 продавца · 308–5 580 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>Дешёвый расходник.</td><td class="nw"><a href="dokazatelstva/zzap_3701011XED95.png" data-big="dokazatelstva/zzap_3701011XED95.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3701011XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>6</td><td><a href="vhod/foto/06.png" data-big="vhod/foto/06.png"><img class="foto" src="vhod/foto/06.png" loading="lazy" alt=""></a></td><td><b>Натяжной ролик ремня</b><br><span class="mono">3701200XED61</span> · Poer</td><td>в наличии: <b>10 продавцов</b> · 2 500–6 700 ₽<br><span class="mute">под заказ: 308 продавцов · 2 481–9 267 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>10 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_3701200XED61.png" data-big="dokazatelstva/zzap_3701200XED61.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3701200XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>7</td><td><a href="vhod/foto/07.png" data-big="vhod/foto/07.png"><img class="foto" src="vhod/foto/07.png" loading="lazy" alt=""></a></td><td><b>Крестовина карданного вала (размер 30×92)</b><br><span class="mono">—</span> · Poer</td><td><span class="mute">нет номера</span></td><td><span class="tag u">не проверяли</span></td><td>Вместо номера указан размер.</td><td class="nw"></td></tr>
+<tr class="v-t2"><td>8</td><td><a href="vhod/foto/08.png" data-big="vhod/foto/08.png"><img class="foto" src="vhod/foto/08.png" loading="lazy" alt=""></a></td><td><b>ТНВД — насос высокого давления топлива</b><br><span class="mono">1111100XED61</span> · Poer</td><td>в наличии: <b>3 продавца</b> · 57 000–70 000 ₽<br><span class="mute">под заказ: 65 продавцов · 39 030–229 477 ₽</span></td><td><span class="tag t2">кандидат, если цена ниже</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_1111100XED61.png" data-big="dokazatelstva/zzap_1111100XED61.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1111100XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>9</td><td><a href="vhod/foto/09.png" data-big="vhod/foto/09.png"><img class="foto" src="vhod/foto/09.png" loading="lazy" alt=""></a></td><td><b>Топливный фильтр в сборе</b><br><span class="mono">1111400XED95</span> · Poer</td><td>в наличии: <b>5 продавцов</b> · 4 175–7 200 ₽<br><span class="mute">под заказ: 340 продавцов · 4 090–14 164 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>5 продавцов в наличии; на zzap — «фильтр грубой очистки».</td><td class="nw"><a href="dokazatelstva/zzap_1111400XED95.png" data-big="dokazatelstva/zzap_1111400XED95.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1111400XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>10</td><td><a href="vhod/foto/10.png" data-big="vhod/foto/10.png"><img class="foto" src="vhod/foto/10.png" loading="lazy" alt=""></a></td><td><b>Топливный фильтр в сборе (другая версия мотора)</b><br><span class="mono">1111400XED96</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1111400XED96&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>11</td><td><a href="vhod/foto/11.png" data-big="vhod/foto/11.png"><img class="foto" src="vhod/foto/11.png" loading="lazy" alt=""></a></td><td><b>Элемент топливного фильтра</b><br><span class="mono">1111402XED96</span> · Poer</td><td>в наличии: <b>38 продавцов</b> · 1 215–5 150 ₽<br><span class="mute">под заказ: 532 продавца · 1 750–9 840 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>38 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_1111402XED96.png" data-big="dokazatelstva/zzap_1111402XED96.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1111402XED96&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-t2"><td>12</td><td><a href="vhod/foto/12.png" data-big="vhod/foto/12.png"><img class="foto" src="vhod/foto/12.png" loading="lazy" alt=""></a></td><td><b>Помпа (водяной насос)</b><br><span class="mono">1307100XED95</span> · Poer</td><td>в наличии: <b>2 продавца</b> · 10 000–16 492 ₽<br><span class="mute">под заказ: 213 продавцов · 4 901–26 239 ₽</span></td><td><span class="tag t2">кандидат, если цена ниже</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_1307100XED95.png" data-big="dokazatelstva/zzap_1307100XED95.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1307100XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>13</td><td><a href="vhod/foto/13.png" data-big="vhod/foto/13.png"><img class="foto" src="vhod/foto/13.png" loading="lazy" alt=""></a></td><td><b>Шаровая опора нижняя</b><br><span class="mono">2904109XPW01A</span> · Poer</td><td>в наличии: <b>5 продавцов</b> · 1 750–3 400 ₽<br><span class="mute">под заказ: 163 продавца · 2 188–9 875 ₽</span></td><td><span class="tag z">позже</span></td><td>5 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_2904109XPW01A.png" data-big="dokazatelstva/zzap_2904109XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2904109XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>14</td><td><a href="vhod/foto/14.png" data-big="vhod/foto/14.png"><img class="foto" src="vhod/foto/14.png" loading="lazy" alt=""></a></td><td><b>Втулка рессоры</b><br><span class="mono">2912106XPW01A</span> · Poer</td><td>в наличии: <b>2 продавца</b> · 200–342 ₽<br><span class="mute">под заказ: 227 продавцов · 124–1 293 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>Копейки.</td><td class="nw"><a href="dokazatelstva/zzap_2912106XPW01A.png" data-big="dokazatelstva/zzap_2912106XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2912106XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>15</td><td><a href="vhod/foto/15.png" data-big="vhod/foto/15.png"><img class="foto" src="vhod/foto/15.png" loading="lazy" alt=""></a></td><td><b>Втулка рессоры</b><br><span class="mono">2912107XPW01A</span> · Poer</td><td>в наличии: <b>0 продавцов</b><br><span class="mute">под заказ: 131 продавец · 80–1 176 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>Копейки.</td><td class="nw"><a href="dokazatelstva/zzap_2912107XPW01A.png" data-big="dokazatelstva/zzap_2912107XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2912107XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>16</td><td><a href="vhod/foto/16.png" data-big="vhod/foto/16.png"><img class="foto" src="vhod/foto/16.png" loading="lazy" alt=""></a></td><td><b>Нижний рулевой карданчик</b><br><span class="mono">3404102XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3404102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>17</td><td><a href="vhod/foto/17.png" data-big="vhod/foto/17.png"><img class="foto" src="vhod/foto/17.png" loading="lazy" alt=""></a></td><td><b>Ремень насоса ГУР</b><br><span class="mono">3407011XED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3407011XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>18</td><td><a href="vhod/foto/18.png" data-big="vhod/foto/18.png"><img class="foto" src="vhod/foto/18.png" loading="lazy" alt=""></a></td><td><b>Насос ГУР (гидроусилителя руля)</b><br><span class="mono">3407101APW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td>Сверить: в статье kolesa.ru у Poer электрический усилитель руля.</td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3407101APW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-t"><td>19</td><td><a href="vhod/foto/19.png" data-big="vhod/foto/19.png"><img class="foto" src="vhod/foto/19.png" loading="lazy" alt=""></a></td><td><b>Вакуумный насос</b><br><span class="mono">3541100XED61</span> · Poer</td><td>в наличии: <b>3 продавца</b> · 4 500–22 000 ₽<br><span class="mute">под заказ: 47 продавцов · 3 894–26 911 ₽</span></td><td><span class="tag t">кандидат №1</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_3541100XED61.png" data-big="dokazatelstva/zzap_3541100XED61.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3541100XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-n"><td>20</td><td><a href="vhod/foto/20.png" data-big="vhod/foto/20.png"><img class="foto" src="vhod/foto/20.png" loading="lazy" alt=""></a></td><td><b>Комплект ГРМ (номер фирмы Gates)</b><br><span class="mono">K0120554</span> · Poer</td><td>в наличии: <b>6 продавцов</b> · 7 400–12 450 ₽<br><span class="mute">под заказ: 156 продавцов · 7 210–20 339 ₽</span></td><td><span class="tag n">не брать / выяснить</span></td><td>Чужой бренд, 6 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_K0120554.png" data-big="dokazatelstva/zzap_K0120554.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=K0120554&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>21</td><td><a href="vhod/foto/21.png" data-big="vhod/foto/21.png"><img class="foto" src="vhod/foto/21.png" loading="lazy" alt=""></a></td><td><b>Рулевой механизм</b><br><span class="mono">3401100XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3401100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>22</td><td><a href="vhod/foto/22.png" data-big="vhod/foto/22.png"><img class="foto" src="vhod/foto/22.png" loading="lazy" alt=""></a></td><td><b>Задняя рессора</b><br><span class="mono">2912102XPW01A</span> · Poer</td><td>в наличии: <b>3 продавца</b> · 12 000–13 500 ₽<br><span class="mute">под заказ: 52 продавца · 11 673–38 460 ₽</span></td><td><span class="tag z">позже</span></td><td>Тяжёлая — дорогая доставка.</td><td class="nw"><a href="dokazatelstva/zzap_2912102XPW01A.png" data-big="dokazatelstva/zzap_2912102XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2912102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>23</td><td><a href="vhod/foto/23.png" data-big="vhod/foto/23.png"><img class="foto" src="vhod/foto/23.png" loading="lazy" alt=""></a></td><td><b>Рулевой наконечник</b><br><span class="mono">3401101XPW01A</span> · Poer</td><td>в наличии: <b>9 продавцов</b> · 700–5 196 ₽<br><span class="mute">под заказ: 332 продавца · 1 325–7 275 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_3401101XPW01A.png" data-big="dokazatelstva/zzap_3401101XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3401101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>24</td><td><a href="vhod/foto/24.png" data-big="vhod/foto/24.png"><img class="foto" src="vhod/foto/24.png" loading="lazy" alt=""></a></td><td><b>Механизм подъёма запасного колеса</b><br><span class="mono">3105100XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3105100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>25</td><td><a href="vhod/foto/25.png" data-big="vhod/foto/25.png"><img class="foto" src="vhod/foto/25.png" loading="lazy" alt=""></a></td><td><b>Фланец передней ступицы</b><br><span class="mono">3103101XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3103101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>26</td><td><a href="vhod/foto/26.png" data-big="vhod/foto/26.png"><img class="foto" src="vhod/foto/26.png" loading="lazy" alt=""></a></td><td><b>Подшипник передней ступицы</b><br><span class="mono">3103100XPW01A</span> · Poer</td><td>в наличии: <b>13 продавцов</b> · 1 490–7 550 ₽<br><span class="mute">под заказ: 311 продавцов · 1 584–10 210 ₽</span></td><td><span class="tag z">позже</span></td><td>13 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_3103100XPW01A.png" data-big="dokazatelstva/zzap_3103100XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3103100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>27</td><td><a href="vhod/foto/27.png" data-big="vhod/foto/27.png"><img class="foto" src="vhod/foto/27.png" loading="lazy" alt=""></a></td><td><b>Коническая втулка поворотного кулака</b><br><span class="mono">3001112XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3001112XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>28</td><td><a href="vhod/foto/28.png" data-big="vhod/foto/28.png"><img class="foto" src="vhod/foto/28.png" loading="lazy" alt=""></a></td><td><b>U-образный болт (стремянка рессоры)</b><br><span class="mono">2912104XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=2912104XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>29</td><td><a href="vhod/foto/29.png" data-big="vhod/foto/29.png"><img class="foto" src="vhod/foto/29.png" loading="lazy" alt=""></a></td><td><b>Подвесной подшипник кардана</b><br><span class="mono">2200100XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=2200100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>30</td><td><a href="vhod/foto/30.png" data-big="vhod/foto/30.png"><img class="foto" src="vhod/foto/30.png" loading="lazy" alt=""></a></td><td><b>Трос переключения передач</b><br><span class="mono">1703300XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td>Только для механической коробки.</td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1703300XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>31</td><td><a href="vhod/foto/31.png" data-big="vhod/foto/31.png"><img class="foto" src="vhod/foto/31.png" loading="lazy" alt=""></a></td><td><b>Главный цилиндр сцепления</b><br><span class="mono">1608100XPW01A</span> · Poer</td><td>в наличии: <b>1 продавец</b> · 4 500 ₽<br><span class="mute">под заказ: 52 продавца · 2 900–14 450 ₽</span></td><td><span class="tag z">позже</span></td><td>Только для механической коробки — таких Poer мало.</td><td class="nw"><a href="dokazatelstva/zzap_1608100XPW01A.png" data-big="dokazatelstva/zzap_1608100XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1608100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>32</td><td><a href="vhod/foto/32.png" data-big="vhod/foto/32.png"><img class="foto" src="vhod/foto/32.png" loading="lazy" alt=""></a></td><td><b>Шланг сцепления</b><br><span class="mono">1607102XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td>Только для механической коробки.</td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1607102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>33</td><td><a href="vhod/foto/33.png" data-big="vhod/foto/33.png"><img class="foto" src="vhod/foto/33.png" loading="lazy" alt=""></a></td><td><b>Трубка сцепления</b><br><span class="mono">1607104XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td>Только для механической коробки.</td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1607104XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-n"><td>34</td><td><a href="vhod/foto/34.png" data-big="vhod/foto/34.png"><img class="foto" src="vhod/foto/34.png" loading="lazy" alt=""></a></td><td><b>Форсунка мочевины (AdBlue)</b><br><span class="mono">1205145XPW01A</span> · Poer</td><td><span class="mute">zzap: «Мы пока ничего не знаем об этом номере»</span></td><td><span class="tag n">не брать / выяснить</span></td><td>Ни одного продавца в России по этому номеру (снимок). Похоже, машин с мочевиной (AdBlue) в России почти нет.</td><td class="nw"><a href="dokazatelstva/zzap_1205145XPW01A.png" data-big="dokazatelstva/zzap_1205145XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1205145XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>35</td><td><a href="vhod/foto/35.png" data-big="vhod/foto/35.png"><img class="foto" src="vhod/foto/35.png" loading="lazy" alt=""></a></td><td><b>Патрубок воздушного фильтра</b><br><span class="mono">1132101APW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1132101APW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>36</td><td><a href="vhod/foto/36.png" data-big="vhod/foto/36.png"><img class="foto" src="vhod/foto/36.png" loading="lazy" alt=""></a></td><td><b>Шланг адсорбера</b><br><span class="mono">1130106XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1130106XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>37</td><td><a href="vhod/foto/37.png" data-big="vhod/foto/37.png"><img class="foto" src="vhod/foto/37.png" loading="lazy" alt=""></a></td><td><b>Клапан адсорбера</b><br><span class="mono">1130110XKU88A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1130110XKU88A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>38</td><td><a href="vhod/foto/38.png" data-big="vhod/foto/38.png"><img class="foto" src="vhod/foto/38.png" loading="lazy" alt=""></a></td><td><b>Шланг интеркулера</b><br><span class="mono">1119102XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1119102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>39</td><td><a href="vhod/foto/39.png" data-big="vhod/foto/39.png"><img class="foto" src="vhod/foto/39.png" loading="lazy" alt=""></a></td><td><b>Обратные трубки топливной рампы</b><br><span class="mono">1100900XED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1100900XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-t2"><td>40</td><td><a href="vhod/foto/40.png" data-big="vhod/foto/40.png"><img class="foto" src="vhod/foto/40.png" loading="lazy" alt=""></a></td><td><b>Топливная рампа</b><br><span class="mono">1100200XED95</span> · Poer</td><td>в наличии: <b>0 продавцов</b><br><span class="mute">под заказ: 41 продавец · 5 999–64 463 ₽</span></td><td><span class="tag t2">кандидат, если цена ниже</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_1100200XED95.png" data-big="dokazatelstva/zzap_1100200XED95.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1100200XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>41</td><td><a href="vhod/foto/41.png" data-big="vhod/foto/41.png"><img class="foto" src="vhod/foto/41.png" loading="lazy" alt=""></a></td><td><b>Шланги вентиляции картера</b><br><span class="mono">1014220XED96</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1014220XED96&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>42</td><td><a href="vhod/foto/42.png" data-big="vhod/foto/42.png"><img class="foto" src="vhod/foto/42.png" loading="lazy" alt=""></a></td><td><b>Шланги вентиляции картера</b><br><span class="mono">1014220XED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1014220XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>43</td><td><a href="vhod/foto/43.png" data-big="vhod/foto/43.png"><img class="foto" src="vhod/foto/43.png" loading="lazy" alt=""></a></td><td><b>Масляный радиатор</b><br><span class="mono">1013100AED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1013100AED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>44</td><td><a href="vhod/foto/44.png" data-big="vhod/foto/44.png"><img class="foto" src="vhod/foto/44.png" loading="lazy" alt=""></a></td><td><b>Масляный насос</b><br><span class="mono">1011100XED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1011100XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>45</td><td><a href="vhod/foto/45.png" data-big="vhod/foto/45.png"><img class="foto" src="vhod/foto/45.png" loading="lazy" alt=""></a></td><td><b>Коленчатый вал</b><br><span class="mono">1005100XED61</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1005100XED61&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-n"><td>46</td><td><a href="vhod/foto/46.png" data-big="vhod/foto/46.png"><img class="foto" src="vhod/foto/46.png" loading="lazy" alt=""></a></td><td><b>Двухмассовый маховик</b><br><span class="mono">1005101XPW01A</span> · Poer</td><td><span class="mute">zzap: «Нет никаких данных, вообще никаких»</span></td><td><span class="tag n">не брать / выяснить</span></td><td>Ни одного продавца в России по этому номеру (снимок). Сначала уточнить у Чжана, что это за деталь.</td><td class="nw"><a href="dokazatelstva/zzap_1005101XPW01A.png" data-big="dokazatelstva/zzap_1005101XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1005101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>47</td><td><a href="vhod/foto/47.png" data-big="vhod/foto/47.png"><img class="foto" src="vhod/foto/47.png" loading="lazy" alt=""></a></td><td><b>Нижний поддон картера</b><br><span class="mono">1009300XED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1009300XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>48</td><td><a href="vhod/foto/48.png" data-big="vhod/foto/48.png"><img class="foto" src="vhod/foto/48.png" loading="lazy" alt=""></a></td><td><b>Выпускной коллектор</b><br><span class="mono">1008201XED95</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1008201XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>49</td><td><a href="vhod/foto/49.png" data-big="vhod/foto/49.png"><img class="foto" src="vhod/foto/49.png" loading="lazy" alt=""></a></td><td><b>Комплект сцепления</b><br><span class="mono">1601002XPW01A</span> · Poer</td><td>в наличии: <b>2 продавца</b> · 16 200–22 500 ₽<br><span class="mute">под заказ: 5 продавцов · 19 809–35 348 ₽</span></td><td><span class="tag z">позже</span></td><td>Только для механической коробки — таких Poer мало.</td><td class="nw"><a href="dokazatelstva/zzap_1601002XPW01A.png" data-big="dokazatelstva/zzap_1601002XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1601002XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>50</td><td><a href="vhod/foto/50.png" data-big="vhod/foto/50.png"><img class="foto" src="vhod/foto/50.png" loading="lazy" alt=""></a></td><td><b>Опора коробки передач</b><br><span class="mono">1706100XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=1706100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>51</td><td><a href="vhod/foto/51.png" data-big="vhod/foto/51.png"><img class="foto" src="vhod/foto/51.png" loading="lazy" alt=""></a></td><td><b>Передний правый привод</b><br><span class="mono">2303101XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=2303101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-n"><td>52</td><td><a href="vhod/foto/52.png" data-big="vhod/foto/52.png"><img class="foto" src="vhod/foto/52.png" loading="lazy" alt=""></a></td><td><b>Передний амортизатор с пружиной</b><br><span class="mono">2905100XPW04A</span> · Poer</td><td><span class="mute">zzap: «Мы пока ничего не знаем об этом номере»</span></td><td><span class="tag n">не брать / выяснить</span></td><td>Ни одного продавца в России по этому номеру (снимок). Версия XPW04A — видимо, не для российских машин.</td><td class="nw"><a href="dokazatelstva/zzap_2905100XPW04A.png" data-big="dokazatelstva/zzap_2905100XPW04A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2905100XPW04A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-t"><td>53</td><td><a href="vhod/foto/53.png" data-big="vhod/foto/53.png"><img class="foto" src="vhod/foto/53.png" loading="lazy" alt=""></a></td><td><b>Задний амортизатор</b><br><span class="mono">2915100XPW01A</span> · Poer</td><td>в наличии: <b>2 продавца</b> · 5 000 ₽<br><span class="mute">под заказ: 31 продавец · 6 924–24 130 ₽</span></td><td><span class="tag t">кандидат №1</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_2915100XPW01A.png" data-big="dokazatelstva/zzap_2915100XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2915100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>54</td><td><a href="vhod/foto/54.png" data-big="vhod/foto/54.png"><img class="foto" src="vhod/foto/54.png" loading="lazy" alt=""></a></td><td><b>Правый передний поворотный кулак</b><br><span class="mono">3001103XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3001103XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>55</td><td><a href="vhod/foto/55.png" data-big="vhod/foto/55.png"><img class="foto" src="vhod/foto/55.png" loading="lazy" alt=""></a></td><td><b>Подшипник передней ступицы</b><br><span class="mono">3103500XGW04A</span> · Kingkong</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=3103500XGW04A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>56</td><td><a href="vhod/foto/56.png" data-big="vhod/foto/56.png"><img class="foto" src="vhod/foto/56.png" loading="lazy" alt=""></a></td><td><b>Левый верхний рычаг</b><br><span class="mono">2904101XPW01A</span> · Poer</td><td>в наличии: <b>4 продавца</b> · 6 000–7 970 ₽<br><span class="mute">под заказ: 216 продавцов · 2 460–17 253 ₽</span></td><td><span class="tag z">позже</span></td><td>4 продавца в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_2904101XPW01A.png" data-big="dokazatelstva/zzap_2904101XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=2904101XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>57</td><td><a href="vhod/foto/57.png" data-big="vhod/foto/57.png"><img class="foto" src="vhod/foto/57.png" loading="lazy" alt=""></a></td><td><b>Передний правый привод</b><br><span class="mono">2303113XGW04A</span> · Kingkong</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=2303113XGW04A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>58</td><td><a href="vhod/foto/58.png" data-big="vhod/foto/58.png"><img class="foto" src="vhod/foto/58.png" loading="lazy" alt=""></a></td><td><b>Опора (подушка) двигателя левая</b><br><span class="mono">1001100XP6PXA</span> · Poer</td><td>в наличии: <b>1 продавец</b> · 3 000 ₽<br><span class="mute">под заказ: 16 продавцов · 1 616–13 629 ₽</span></td><td><span class="tag z">позже</span></td><td>1 продавец в наличии; на Ozon 3 карточки от 5 106 ₽.</td><td class="nw"><a href="dokazatelstva/zzap_1001100XP6PXA.png" data-big="dokazatelstva/zzap_1001100XP6PXA.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1001100XP6PXA&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>59</td><td><a href="vhod/foto/59.png" data-big="vhod/foto/59.png"><img class="foto" src="vhod/foto/59.png" loading="lazy" alt=""></a></td><td><b>Опора (подушка) двигателя правая</b><br><span class="mono">1001200XP6PXA</span> · Poer</td><td>в наличии: <b>3 продавца</b> · 2 156–3 000 ₽<br><span class="mute">под заказ: 27 продавцов · 2 156–19 110 ₽</span></td><td><span class="tag z">позже</span></td><td>3 продавца в наличии; на Ozon 6 карточек от 3 518 ₽.</td><td class="nw"><a href="dokazatelstva/zzap_1001200XP6PXA.png" data-big="dokazatelstva/zzap_1001200XP6PXA.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1001200XP6PXA&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>60</td><td><a href="vhod/foto/60.png" data-big="vhod/foto/60.png"><img class="foto" src="vhod/foto/60.png" loading="lazy" alt=""></a></td><td><b>Масляный фильтр</b><br><span class="mono">1017110XED95</span> · Poer</td><td>в наличии: <b>62 продавца</b> · 140–2 500 ₽<br><span class="mute">под заказ: 524 продавца · 180–4 345 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>62 продавца в наличии — рынок забит.</td><td class="nw"><a href="dokazatelstva/zzap_1017110XED95.png" data-big="dokazatelstva/zzap_1017110XED95.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1017110XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>61</td><td><a href="vhod/foto/61.png" data-big="vhod/foto/61.png"><img class="foto" src="vhod/foto/61.png" loading="lazy" alt=""></a></td><td><b>Передний тормозной диск</b><br><span class="mono">3501104XPW01A</span> · Poer</td><td>в наличии: <b>17 продавцов</b> · 3 000–17 824 ₽<br><span class="mute">под заказ: 472 продавца · 2 255–20 420 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>17 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_3501104XPW01A.png" data-big="dokazatelstva/zzap_3501104XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3501104XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-z"><td>62</td><td><a href="vhod/foto/62.png" data-big="vhod/foto/62.png"><img class="foto" src="vhod/foto/62.png" loading="lazy" alt=""></a></td><td><b>Задний тормозной диск</b><br><span class="mono">3502102XPW01A</span> · Poer</td><td>в наличии: <b>4 продавца</b> · 2 970–6 001 ₽<br><span class="mute">под заказ: 84 продавца · 2 036–17 350 ₽</span></td><td><span class="tag z">позже</span></td><td>4 продавца в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_3502102XPW01A.png" data-big="dokazatelstva/zzap_3502102XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3502102XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>63</td><td><a href="vhod/foto/63.png" data-big="vhod/foto/63.png"><img class="foto" src="vhod/foto/63.png" loading="lazy" alt=""></a></td><td><b>Передние тормозные колодки</b><br><span class="mono">3501119XPW01A</span> · Poer</td><td>в наличии: <b>27 продавцов</b> · 1 000–8 346 ₽<br><span class="mute">под заказ: 423 продавца · 500–14 264 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>27 продавцов в наличии.</td><td class="nw"><a href="dokazatelstva/zzap_3501119XPW01A.png" data-big="dokazatelstva/zzap_3501119XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3501119XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-d"><td>64</td><td><a href="vhod/foto/64.png" data-big="vhod/foto/64.png"><img class="foto" src="vhod/foto/64.png" loading="lazy" alt=""></a></td><td><b>Задние тормозные колодки</b><br><span class="mono">3502139XPW01A</span> · Poer</td><td>в наличии: <b>10 продавцов</b> · 750–6 409 ₽<br><span class="mute">под заказ: 312 продавцов · 743–10 402 ₽</span></td><td><span class="tag d">добавка к заказу</span></td><td>10 продавцов в наличии, на zzap подписаны как колодки Tank 300.</td><td class="nw"><a href="dokazatelstva/zzap_3502139XPW01A.png" data-big="dokazatelstva/zzap_3502139XPW01A.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=3502139XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-u"><td>65</td><td><a href="vhod/foto/65.png" data-big="vhod/foto/65.png"><img class="foto" src="vhod/foto/65.png" loading="lazy" alt=""></a></td><td><b>Шаровая опора верхняя</b><br><span class="mono">2904100XPW01A</span> · Poer</td><td><span class="mute">—</span></td><td><span class="tag u">не проверяли</span></td><td></td><td class="nw"><a href="https://www.zzap.ru/public/search.aspx#rawdata=2904100XPW01A&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
+<tr class="v-t2"><td>66</td><td><a href="vhod/foto/66.png" data-big="vhod/foto/66.png"><img class="foto" src="vhod/foto/66.png" loading="lazy" alt=""></a></td><td><b>Форсунка дизельная</b><br><span class="mono">1100100XED95</span> · Poer</td><td>в наличии: <b>9 продавцов</b> · 13 900–23 820 ₽<br><span class="mute">под заказ: 320 продавцов · 7 007–55 626 ₽</span></td><td><span class="tag t2">кандидат, если цена ниже</span></td><td></td><td class="nw"><a href="dokazatelstva/zzap_1100100XED95.png" data-big="dokazatelstva/zzap_1100100XED95.png">снимок</a> · <a href="https://www.zzap.ru/public/search.aspx#rawdata=1100100XED95&amp;class_man=GREAT%20WALL" target="_blank">zzap</a></td></tr>
 </tbody>
 </table>
 </div>
 
-<h2>5. Вопросы Чжану — до плана</h2>
-<div class="card">
-<p style="margin-top:0">Первые 4 вопроса (где продавать, где товар, закупочные цены и минимальный заказ, формат) уже есть в твоём черновике.
-Ниже — что добавить по итогам проверки: про товар, доставку и марку. Вопросы о деньгах и формате пока не задаём (решение Виты, 16.10.2026).</p>
+<h2>6. Что исправлено при второй проверке</h2>
+<div class="card fix">
+<ul>
+<li><b>Задний амортизатор:</b> раньше было «на Ozon ~12 карточек, 7,9–10,4 тыс.». Неверно — это были проставки для клиренса, а не амортизаторы. Амортизатора на Ozon нет вообще. Он стал кандидатом №1.</li>
+<li><b>Сцепление</b> убрано из теста: Poer в основном с автоматом.</li>
+<li><b>Форсунка на Ozon:</b> было «5,3–21 тыс.», по снимку — от 4 826 до 33 955 ₽.</li>
+<li><b>Помпа на Ozon:</b> было «до 17 тыс.», по снимку — 4 359–11 903 ₽.</li>
+<li><b>Вакуумный насос:</b> на Ozon нашей детали нет (карточка — другой, электрический насос). Зато на WB есть 2 карточки по 7,5–7,9 тыс.</li>
+<li><b>Убрано без доказательства:</b> цена ТНВД на eBay ($622), цены Авито, «zzap называет маховик коленвалом», оценка «15–20 тыс. машин на дорогах».</li>
+<li><b>emex.ru убран из источников:</b> сайт зависает и показывает явно ошибочные цены (в заголовке страницы ТНВД — «от 12 959 224 руб»).</li>
+</ul>
+</div>
 
-<h3>А. Товар</h3>
+<h2>7. Что не проверено</h2>
+<div class="card">
+<ul>
+<li>33 детали (серые строки) — цен ещё нет.</li>
+<li>Ozon и WB проверены только по деталям из теста.</li>
+<li>Сколько Poer всего ездит в России — точной цифры нет ни в одном источнике.</li>
+<li>Цены у официального дилера.</li>
+<li>Себестоимость: курс, доставка, пошлина — считаем, когда Чжан пришлёт цены.</li>
+</ul>
+</div>
+
+<h2>8. Вопросы Чжану</h2>
+<div class="card">
+<p class="mute" style="margin-top:0">Про деньги и формат пока не спрашиваем (решение 16.10.2026).</p>
 <div class="q"><div class="ru">1. Это оригинал GWM (с завода или от поставщика завода), копия (аналог) или б/у? Какая марка на коробке?</div><div class="zh">1. 这些是长城原厂件（主机厂或配套厂）、副厂件，还是二手件？包装上是什么品牌？</div></div>
 <div class="q"><div class="ru">2. Все детали — для дизеля 2.0 (GW4D20M)? В России в основном ездят Poer 2021–2024 с этим мотором.</div><div class="zh">2. 这些配件都适用于2.0柴油发动机（GW4D20M）吗？俄罗斯的长城炮主要是2021–2024年这款发动机的车型。</div></div>
-<div class="q"><div class="ru">3. Уточните номер 1005101XPW01A: это двухмассовый маховик или коленвал? И номер для набора прокладок (позиция 1).</div><div class="zh">3. 请确认1005101XPW01A是双质量飞轮还是曲轴？第1项发动机大修包的零件号是多少？</div></div>
+<div class="q"><div class="ru">3. Уточните номер 1005101XPW01A: это двухмассовый маховик или другая деталь? И номер для набора прокладок (позиция 1).</div><div class="zh">3. 请确认1005101XPW01A是不是双质量飞轮？第1项发动机大修包的零件号是多少？</div></div>
 <div class="q"><div class="ru">4. Есть ли у вас товар на складе сейчас? Если да, сколько штук по каждой позиции?</div><div class="zh">4. 现在有现货吗？每个零件有多少库存？</div></div>
-<div class="q"><div class="ru">5. Цена в юанях и минимальный заказ — в первую очередь по ТНВД, форсункам, рампе, вакуумному насосу, помпе, сцеплению, задним амортизаторам, опорам двигателя.</div><div class="zh">5. 请报人民币价格和起订量，优先：高压油泵、喷油器、高压油轨、真空泵、水泵、离合器三件套、后减振器、发动机悬置。</div></div>
+<div class="q"><div class="ru">5. Цена в юанях и минимальный заказ — в первую очередь: вакуумный насос, задний амортизатор, ТНВД, форсунка, топливная рампа, помпа.</div><div class="zh">5. 请报人民币价格和起订量，优先：真空泵、后减振器、高压油泵、喷油器、高压油轨、水泵。</div></div>
 <div class="q"><div class="ru">6. Гарантия на брак: что делаем, если деталь не подошла или сломалась?</div><div class="zh">6. 质量问题怎么处理？如果配件不匹配或损坏，怎么退换？</div></div>
-
-<h3>Б. Доставка и документы</h3>
-<div class="q"><div class="ru">7. Можете ли довезти до Москвы или до границы? Сколько стоит и сколько идёт? Вес и размер упаковки ТНВД и форсунки?</div><div class="zh">7. 能发到莫斯科或边境吗？运费多少、多长时间？高压油泵和喷油器的包装重量和尺寸是多少？</div></div>
+<div class="q"><div class="ru">7. Можете ли довезти до Москвы или до границы? Сколько стоит и сколько идёт? Вес и размер упаковки ТНВД и амортизатора?</div><div class="zh">7. 能发到莫斯科或边境吗？运费多少、多长时间？高压油泵和后减振器的包装重量和尺寸是多少？</div></div>
 <div class="q"><div class="ru">8. Есть ли у поставщика сертификаты, нужные для таможни ЕАЭС? Для фильтров и тормозов они обязательны.</div><div class="zh">8. 供应商有欧亚经济联盟（EAC）认证吗？滤清器和刹车件需要认证。</div></div>
-
-<h3>В. Почему Poer, а не Haval</h3>
-<div class="q"><div class="ru">9. Вы писали «Haval», а список — на Poer. Haval в России в 30–50 раз больше. Есть ли у вас поставщик и на Haval (Jolion, F7, M6, H3)?</div><div class="zh">9. 您说的是哈弗，但清单都是长城炮的。哈弗在俄罗斯的保有量比长城炮多30–50倍。您也有哈弗（初恋、F7、M6、H3）的货源吗？</div></div>
-</div>
-
-<h2>6. Что не изучено (прямо)</h2>
-<div class="card">
-<ul>
-<li>Цены ещё по 33 позициям (серые строки таблицы): рулевое, приводы, масляный насос, коленвал, ГУР, шланги.</li>
-<li>Ozon, WB и Авито проверены только по 8 деталям теста (по номеру OE). Остальные детали — пока нет.</li>
-<li>Цены официального дилера (Haval City): не смотрели. Обычно они выше, чем у перекупщиков.</li>
-<li>Точный парк Poer в 2026 году — только прикидка (15–20 тыс.).</li>
-<li>Курс юаня и рубля и итоговая себестоимость — посчитаем, когда Чжан пришлёт цены.</li>
-</ul>
-</div>
-
-<h2>7. Все источники</h2>
-<div class="card">
-<h3 style="margin-top:0">Спрос</h3>
-<ul>
-<li>Яндекс Wordstat, Россия, 08.09–07.10.2026 — <a href="https://wordstat.yandex.ru/?region=225&view=table&words=poer">poer</a>,
-<a href="https://wordstat.yandex.ru/?region=225&view=table&words=%D0%BF%D0%BE%D0%B5%D1%80">поер</a>,
-<a href="https://wordstat.yandex.ru/?region=225&view=table&words=great%20wall%20poer">great wall poer</a>,
-<a href="https://wordstat.yandex.ru/?region=225&view=table&words=gw4d20m">gw4d20m</a> (запросы по деталям — те же ссылки с добавленным словом)</li>
-</ul>
-<h3>Цены (по каждой детали — ссылки прямо в таблице)</h3>
-<ul>
-<li><a href="https://emex.ru">emex.ru</a> — пункт «Эмекс на Угрешской», Москва; шаблон: emex.ru/products/&lt;номер&gt;/Great Wall/10797</li>
-<li><a href="https://www.zzap.ru">zzap.ru</a> — Москва и область; сколько продавцов в наличии и под заказ</li>
-<li>Ozon, Wildberries, Авито — ссылки в разделе 2, «Ozon, Wildberries, Авито»</li>
-<li>ТНВД из Китая ~$622 — объявление продавца из Гонконга на eBay (Delphi 28557521)</li>
-</ul>
-<h3>Рынок и парк машин</h3>
-<ul>
-<li><a href="https://www.kolesa.ru/news/v-rf-startovali-prodazhi-pikapa-great-wall-poer-dizel-avtomat-i-udobnyy-polnyy-privod">kolesa.ru — старт продаж Poer, 2021</a></li>
-<li><a href="https://iz.ru/1639745/2024-01-25/kitaiskaia-marka-operedila-uaz-po-prodazham-pikapov-v-rossii">Известия — продажи пикапов 2023</a></li>
-<li><a href="https://www.autonews.ru/news/671a07019a79476c2a784713">Autonews — продажи 2024</a></li>
-<li><a href="https://www.zr.ru/content/news/970509-nazvany-samye-populyarnye-pikap/">За рулём — пикапы, 1-е полугодие 2025</a></li>
-<li><a href="https://www.autonews.ru/news/6a43b8509a794791e07d6e81">Autonews — дизельные Poer 2025, версия 2026</a></li>
-<li><a href="https://auto.ru/mag/article/v-rossii-nachalis-prodazhi-pikapa-great-wall-poer-s-novymi-motorami/">Auto.ru — новые моторы 2025</a></li>
-<li><a href="https://auto.ru/mag/article/postavki-pikapov-great-wall-kingkong-poer-v-rossiyu-prekrashcheny/">Auto.ru — Kingkong, остановка поставок</a></li>
-<li><a href="https://www.autonews.ru/news/69662d7e9a7947e8d4492588">Autonews — Haval 2025</a></li>
-<li><a href="https://auto.ru/mag/article/gwm-v-rossii-v-cifrah-proizvodstvo-prodazhi-i-lokalizaciya/">Auto.ru — GWM в России в цифрах</a></li>
-<li><a href="https://www.autonews.ru/news/6a4b9ba89a7947f5e08fc594">Autonews — склад запчастей GWM в Клину</a></li>
-</ul>
-<h3>Поломки и сервис</h3>
-<ul>
-<li><a href="https://www.drive2.ru/l/669845849336994469/">drive2 — сажевый фильтр</a>, <a href="https://www.drive2.ru/experience/greatwall/g6075">drive2 — записи владельцев Poer</a></li>
-<li><a href="https://www.drom.ru/reviews/great_wall/poer_kingkong/1441479/">drom — отзыв о Kingkong</a></li>
-<li><a href="https://favorit-motors.ru/technical-center/worklist/great-wall/poer/slesarnyi-remont/remont-transmissii/zamena-komplekta-scepleniia-avto/">Фаворит Моторс — цена замены сцепления</a></li>
-<li><a href="https://content.renins.ru/osago/zapchasti-na-kitajskie-avtomobili/">Ренессанс — запчасти на китайские машины</a></li>
-<li><a href="https://www.zr.ru/content/news/982387-mashina-stala-roskoshyu-pochemu/">За рулём — рост цен на запчасти 2026</a></li>
-</ul>
-<h3>Ввоз, документы, доставка</h3>
-<ul>
-<li><a href="https://www.ifcg.ru/en/kb/tnved/8708291000/">IFCG — пошлина на запчасти (ТН ВЭД 8708)</a></li>
-<li><a href="https://www.tws.by/tws/tnved/code/9320">TWS — сертификация по ТР ТС 018/2011</a></li>
-<li><a href="https://kontur.ru/markirovka/spravka/55894-obyazatelnaya_markirovka_avtozapchastey">Контур — маркировка автозапчастей</a></li>
-<li><a href="https://turkish.akfa.ru/otraslevye-resheniya/dostavka-avtozapchastey-iz-kitaya">AKFA — риски ввоза запчастей</a></li>
-<li><a href="https://spark.ru/user/257256/blog/251790/kak-sekonomit-na-kargo-dostavke-iz-kitaya-lichnij-opit">Spark — тарифы карго</a>,
-<a href="https://uniseller.io/blog/kargo-iz-kitaya-2026-belaya-dostavka/">Uniseller — карго и «белый» ввоз 2026</a>,
-<a href="https://vc.ru/raketa/2628382-kargo-logistika-v-2026-godu">vc.ru — карго 2026</a></li>
-<li><a href="https://novayagazeta.eu/articles/2026/07/15/dostavka-gruzov-iz-kitaia-v-rossiiu-podorozhala-na-chetvert-iz-za-toplivnogo-krizisa-news">Новая газета (по «Коммерсанту») — подорожание доставки, июль 2026</a></li>
-</ul>
-<p class="mute" style="margin-bottom:0">Исходный список — <code>vhod\chzhan_spisok_zapchastey.pdf</code> (от Чжана, 🟡 только ПК).</p>
+<div class="q"><div class="ru">9. Вы писали «Haval», а список — на Poer. Haval в России продаётся в десятки раз больше. Есть ли у вас поставщик и на Haval (Jolion, F7, M6, H3)?</div><div class="zh">9. 您说的是哈弗，但清单都是长城炮的。哈弗在俄罗斯的销量比长城炮多几十倍。您也有哈弗（初恋、F7、M6、H3）的货源吗？</div></div>
 </div>
 </main>
+<div id="lb"><img alt=""></div>
 <script>
 document.getElementById('f').addEventListener('click',e=>{
  const b=e.target.closest('button'); if(!b) return;
@@ -328,6 +330,13 @@ document.getElementById('f').addEventListener('click',e=>{
  const v=b.dataset.v;
  document.querySelectorAll('#tb tr').forEach(tr=>{tr.style.display=(v==='all'||tr.classList.contains('v-'+v))?'':'none'});
 });
+const lb=document.getElementById('lb'), li=lb.querySelector('img');
+document.addEventListener('click',e=>{
+ const a=e.target.closest('a[data-big]'); if(!a) return;
+ e.preventDefault(); li.src=a.dataset.big; lb.style.display='flex';
+});
+lb.addEventListener('click',()=>{lb.style.display='none'; li.src='';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.style.display='none';}});
 </script>
 </body>
 </html>
