@@ -2,3 +2,5 @@ vhod/
 *.env
 *key*
 *.log
+.playwright-mcp/
+__pycache__/
