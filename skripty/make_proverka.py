@@ -298,5 +298,26 @@ out = (BODY.replace("{{CSS}}", CSS)
        .replace("{{TABLE}}", "\n".join(row(i) for i in ITEMS)).replace("{{DATE}}", DATE))
 for k, c in counts.items():
     out = out.replace("{{C_" + k + "}}", str(c))
+
+# наша цена = минимум китайцев + 20%; потолок закупки = 40% от неё (комиссия 40%, налог ~20%)
+PRICE = [(8, "ТНВД", 20331), (66, "Форсунка", 4826), (40, "Топливная рампа", 7890),
+         (12, "Помпа", 4264), (43, "Масляный радиатор", 6796), (19, "Вакуумный насос", 7556)]
+def r100(x): return round(x / 100) * 100
+def rub(x): return f"{x:,}".replace(",", " ") + " ₽"
+price_rows = "\n".join(
+    f'<tr><td>№{n}. {E(t)}</td><td>{rub(c)}</td><td><b>{rub(r100(c*1.2))}</b></td><td><b>~{rub(r100(c*1.2*0.4))}</b></td></tr>'
+    for n, t, c in PRICE)
+out = out.replace("{{PRICE}}", price_rows)
 open(os.path.join(ROOT, "proverka.html"), "w", encoding="utf-8").write(out)
+
+# версия для Чжана: без раздела 5 и наших ставок, номера разделов сдвинуты
+import re
+z = re.sub(r"<!--INT-->.*?<!--/INT-->", "", out, flags=re.S)
+z = re.sub(r"<!--SEC5-->.*?<!--/SEC5-->", "", z, flags=re.S)
+z = z.replace(" Файл только для ПК 🟡.", "")
+z = z.replace("можно только после цен Чжана.</b> Для каждой детали ниже написано, ниже какой цены она нам выгодна.",
+              "можно только после цен от Чжана.</b> Для каждой детали ниже написано, при какой цене она интересна.")
+cnt = iter(range(1, 20))
+z = re.sub(r"<h2>\d+\. ", lambda m: f"<h2>{next(cnt)}. ", z)
+open(os.path.join(ROOT, "proverka_zhang.html"), "w", encoding="utf-8").write(z)
 print("позиций:", len(ITEMS), counts)
