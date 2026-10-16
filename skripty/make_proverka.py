@@ -149,6 +149,7 @@ ZZAP.update(ZZAP_EXTRA)
 MANY = 15
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "ozon_ostalnye.py"), encoding="utf-8").read())  # OZ
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "wb_ostalnye.py"), encoding="utf-8").read())  # WB
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "wb_prodazhi.py"), encoding="utf-8").read())  # WBS
 def kart(n):
     return f"{n} карточка" if n % 10 == 1 and n % 100 != 11 else (f"{n} карточки" if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14) else f"{n} карточек")
 def _sp(x): return f"{x:,}".replace(",", " ")
@@ -165,7 +166,7 @@ def status(it):
         if cards >= MANY: return "много конкурентов", "z", "m"
         if cards < 0: return "есть на маркетплейсах", "d", "e"
         if cards == 0:
-            if WB.get(n, (1,))[0] == 0: return "нет на маркетплейсах", "t2", "o"
+            if WBS.get(n, (1,))[0] == 0: return "нет на маркетплейсах", "t2", "o"
             return "есть на маркетплейсах", "d", "e"
         return "есть на маркетплейсах", "d", "e"
     if not n1 and not n2: return "нет продавцов", "n", "s"
@@ -173,30 +174,33 @@ def status(it):
     return "не проверяли", "u", "u"
 
 def oz_parts(n, oe=""):
-    """(русский, китайский) куски про Россию и Ozon для ячейки решения"""
-    if n not in OZ: return []
-    c, mn, mx, q, r, nt = OZ[n]
+    """(русский, китайский) куски про Россию, Ozon и WB для ячейки решения"""
+    if n not in OZ and n not in WBS: return []
     z = ZZAP.get(oe); n1 = z[1] if z else None
-    head = []
-    if n1: head.append((f"в России в наличии {prod(n1)}", f"俄罗斯现货{n1}家卖家"))
-    elif z is not None: head.append(("в России в наличии нет", "俄罗斯无现货"))
-    if c < 0: ru, zh = "на Ozon", "Ozon上"
-    else:
-        ru = "на Ozon нет карточек с этим номером" if c == 0 else f"на Ozon {kart(c)} с номером"
-        zh = "Ozon上没有带此零件号的商品页" if c == 0 else f"Ozon上有{c}个带此零件号的商品页"
-    if mn:
-        mx = mx or mn
-        ru += f", {_sp(mn)}" + (f"–{_sp(mx)}" if mx != mn else "") + " ₽"; zh += f"，{mn}" + (f"–{mx}" if mx != mn else "") + "卢布"
-    if q:
-        ru += ("; " if c >= 0 else ": ") + f"продано за 30 дней (плагин): {q} шт"; zh += ("；" if c >= 0 else "") + f"30天销量（插件）：{q}件"
-    out = head + [(ru, zh)]
-    if n in WB:
-        w, wmn, wmx, wab = WB[n]
+    out = []
+    if n1: out.append((f"в России в наличии {prod(n1)}", f"俄罗斯现货{n1}家卖家"))
+    elif z is not None: out.append(("в России в наличии нет", "俄罗斯无现货"))
+    if n in OZ:
+        c, mn, mx, q, r, nt = OZ[n]
+        if c < 0: ru, zh = "на Ozon", "Ozon上"
+        else:
+            ru = "на Ozon нет карточек с этим номером" if c == 0 else f"на Ozon {kart(c)} с номером"
+            zh = "Ozon上没有带此零件号的商品页" if c == 0 else f"Ozon上有{c}个带此零件号的商品页"
+        if mn:
+            mx = mx or mn
+            ru += f", {_sp(mn)}" + (f"–{_sp(mx)}" if mx != mn else "") + " ₽"; zh += f"，{mn}" + (f"–{mx}" if mx != mn else "") + "卢布"
+        if q:
+            ru += ("; " if c >= 0 else ": ") + f"продано за 30 дней (плагин): {q} шт"; zh += ("；" if c >= 0 else "") + f"30天销量（插件）：{q}件"
+        out.append((ru, zh))
+    if n in WBS:
+        w, hs, wq, wr, wmn, wmx = WBS[n]
         if w == 0: out.append(("на WB карточек с этим номером нет", "WB上没有带此零件号的商品页"))
         else:
-            wr = f"на WB {kart(w)} с номером, {_sp(wmn)}" + (f"–{_sp(wmx)}" if wmx != wmn else "") + " ₽"
-            wz = f"WB上有{w}个带此零件号的商品页，{wmn}" + (f"–{wmx}" if wmx != wmn else "") + "卢布"
-            out.append((wr, wz))
+            ru = f"на WB {kart(w)} с номером, {_sp(wmn)}" + (f"–{_sp(wmx)}" if wmx != wmn else "") + " ₽"
+            zh = f"WB上有{w}个带此零件号的商品页，{wmn}" + (f"–{wmx}" if wmx != wmn else "") + "卢布"
+            if wq:
+                ru += f"; продано за 30 дней (плагин, по {hs} из {w}): {wq} шт, {_sp(wr)} ₽"; zh += f"；30天销量（插件，{w}个中有{hs}个有数据）：{wq}件，{wr}卢布"
+            out.append((ru, zh))
     return out
 
 def zz_cell(oe):
