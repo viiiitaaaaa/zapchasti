@@ -140,9 +140,10 @@ ITEMS = [
  (66, "1100100XED95", "Форсунка дизельная", "Poer", "T2", ""),
 ]
 
+# в таблице всего два слова: «кандидат» и «не брать» (Вита 16.10: сложные пометки Чжан не поймёт)
 VERDICT = {
- "T1": ("кандидат №1", "t"), "T2": ("кандидат (есть предложения из-за границы)", "t2"), "D": ("добавка к заказу", "d"),
- "Z": ("позже", "z"), "N": ("не брать / выяснить", "n"), "U": ("не проверяли", "u"),
+ "T1": ("кандидат", "t"), "T2": ("кандидат", "t"), "D": ("не брать", "n"),
+ "Z": ("не брать", "n"), "N": ("не брать", "n"), "U": ("не брать", "n"),
 }
 
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "zzap_extra.py"), encoding="utf-8").read())  # ZZAP_EXTRA, NOTES_N
@@ -169,8 +170,10 @@ def row(it):
         proof = f'<a href="dokazatelstva/zzap_{oe}.png" data-big="dokazatelstva/zzap_{oe}.png">снимок</a> · <a href="{zz(oe)}" target="_blank">zzap</a>'
     elif oe:
         proof = f'<a href="{zz(oe)}" target="_blank">zzap</a>'
-    return (f'<tr class="v-{cls}"><td>{n}</td><td>{foto(n)}</td><td><b>{E(name)}</b><br><span class="mono">{E(oe or "—")}</span> · {car}</td>'
-            f'<td>{zz_cell(oe)}</td><td><span class="tag {cls}">{label}</span></td><td>{E(note)}</td><td class="nw">{proof}</td></tr>')
+    why = f'<br><span class="mute">{E(note)}</span>' if note else ""
+    grey = " v-u" if v == "U" else ""
+    return (f'<tr class="v-{cls}{grey}"><td>{n}</td><td>{foto(n)}</td><td><b>{E(name)}</b><br><span class="mono">{E(oe or "—")}</span> · {car}</td>'
+            f'<td>{zz_cell(oe)}</td><td><span class="tag {cls}">{label}</span>{why}</td><td class="nw">{proof}</td></tr>')
 
 # ---------- карточки деталей для теста ----------
 TEST = [
@@ -284,6 +287,8 @@ def wordstat_link(q):
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mp_section.py"), encoding="utf-8").read())
 
 counts = {k: sum(1 for i in ITEMS if i[4] == k) for k in VERDICT}
+counts["K"] = counts["T1"] + counts["T2"]
+counts["NB"] = len(ITEMS) - counts["K"]
 
 CSS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka.css"), encoding="utf-8").read()
 BODY = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka_body.html"), encoding="utf-8").read()
