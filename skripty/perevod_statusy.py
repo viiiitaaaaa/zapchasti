@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 P = "skripty/perevod/"
 cells = json.load(open(P + "_cells.json", encoding="utf-8"))
 pairs = json.load(open(P + "_pairs_status.json", encoding="utf-8"))
-LAB = {"кандидат": "候选", "много конкурентов": "竞争者多", "на Ozon нет": "Ozon上没有", "есть на Ozon": "Ozon上有",
+LAB = {"кандидат": "候选", "много конкурентов": "竞争者多", "нет на Ozon и WB": "Ozon和WB上都没有", "только на WB": "只在WB上有", "есть на Ozon": "Ozon上有",
        "нет продавцов": "无卖家", "нет номера": "无零件号", "нет в наличии": "无现货", "не проверяли": "未核查"}
 OZNOTE = {
  "на Ozon продают 8 продавцов": "Ozon上有8个卖家在卖", "на Ozon продаёт 1 продавец": "Ozon上有1个卖家在卖",

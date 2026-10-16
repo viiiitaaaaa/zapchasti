@@ -148,6 +148,9 @@ ZZAP.update(ZZAP_EXTRA)
 # Статус по данным (Вита 16.10: «не брать» без основания не писать; конкуренты — от 15 продавцов в наличии)
 MANY = 15
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "ozon_ostalnye.py"), encoding="utf-8").read())  # OZ
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "wb_ostalnye.py"), encoding="utf-8").read())  # WB
+def kart(n):
+    return f"{n} карточка" if n % 10 == 1 and n % 100 != 11 else (f"{n} карточки" if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14) else f"{n} карточек")
 def _sp(x): return f"{x:,}".replace(",", " ")
 def status(it):
     n, oe, name, car, v, note = it
@@ -161,7 +164,9 @@ def status(it):
         cards = OZ[n][0]
         if cards >= MANY: return "много конкурентов", "z", "m"
         if cards < 0: return "есть на Ozon", "d", "e"
-        if cards == 0: return "на Ozon нет", "t2", "o"
+        if cards == 0:
+            if WB.get(n, (1,))[0] == 0: return "нет на Ozon и WB", "t2", "o"
+            return "только на WB", "t2", "w"
         return "есть на Ozon", "d", "e"
     if not n1 and not n2: return "нет продавцов", "n", "s"
     if not n1: return "нет в наличии", "n", "s"
@@ -177,14 +182,22 @@ def oz_parts(n, oe=""):
     elif z is not None: head.append(("в России в наличии нет", "俄罗斯无现货"))
     if c < 0: ru, zh = "на Ozon", "Ozon上"
     else:
-        ru = "на Ozon нет карточек с этим номером" if c == 0 else f"на Ozon {c} карточек с номером"
+        ru = "на Ozon нет карточек с этим номером" if c == 0 else f"на Ozon {kart(c)} с номером"
         zh = "Ozon上没有带此零件号的商品页" if c == 0 else f"Ozon上有{c}个带此零件号的商品页"
     if mn:
         mx = mx or mn
         ru += f", {_sp(mn)}" + (f"–{_sp(mx)}" if mx != mn else "") + " ₽"; zh += f"，{mn}" + (f"–{mx}" if mx != mn else "") + "卢布"
     if q:
         ru += ("; " if c >= 0 else ": ") + f"продано за 30 дней (плагин): {q} шт"; zh += ("；" if c >= 0 else "") + f"30天销量（插件）：{q}件"
-    return head + [(ru, zh)]
+    out = head + [(ru, zh)]
+    if n in WB:
+        w, wmn, wmx, wab = WB[n]
+        if w == 0: out.append(("на WB карточек с этим номером нет", "WB上没有带此零件号的商品页"))
+        else:
+            wr = f"на WB {kart(w)} с номером, {_sp(wmn)}" + (f"–{_sp(wmx)}" if wmx != wmn else "") + " ₽"
+            wz = f"WB上有{w}个带此零件号的商品页，{wmn}" + (f"–{wmx}" if wmx != wmn else "") + "卢布"
+            out.append((wr, wz))
+    return out
 
 def zz_cell(oe):
     if not oe:
@@ -326,7 +339,7 @@ def wordstat_link(q):
 
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mp_section.py"), encoding="utf-8").read())
 
-counts = {"K": 0, "M": 0, "S": 0, "U": 0, "O": 0, "E": 0}
+counts = {"K": 0, "M": 0, "S": 0, "U": 0, "O": 0, "E": 0, "W": 0}
 for _i in ITEMS: counts[status(_i)[2].upper()] += 1
 
 CSS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka.css"), encoding="utf-8").read()
