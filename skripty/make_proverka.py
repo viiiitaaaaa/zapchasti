@@ -163,11 +163,11 @@ def status(it):
     if n in OZ:
         cards = OZ[n][0]
         if cards >= MANY: return "много конкурентов", "z", "m"
-        if cards < 0: return "есть на Ozon", "d", "e"
+        if cards < 0: return "есть на маркетплейсах", "d", "e"
         if cards == 0:
-            if WB.get(n, (1,))[0] == 0: return "нет на Ozon и WB", "t2", "o"
-            return "только на WB", "t2", "w"
-        return "есть на Ozon", "d", "e"
+            if WB.get(n, (1,))[0] == 0: return "нет на маркетплейсах", "t2", "o"
+            return "есть на маркетплейсах", "d", "e"
+        return "есть на маркетплейсах", "d", "e"
     if not n1 and not n2: return "нет продавцов", "n", "s"
     if not n1: return "нет в наличии", "n", "s"
     return "не проверяли", "u", "u"
