@@ -274,6 +274,8 @@ def wordstat_link(q):
     from urllib.parse import quote
     return f"https://wordstat.yandex.ru/?region=225&amp;view=table&amp;words={quote(q.split(' (')[0])}"
 
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mp_section.py"), encoding="utf-8").read())
+
 counts = {k: sum(1 for i in ITEMS if i[4] == k) for k in VERDICT}
 
 CSS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka.css"), encoding="utf-8").read()
@@ -292,6 +294,7 @@ out = (BODY.replace("{{CSS}}", CSS)
        .replace("{{TEST_T1}}", "\n".join(test_card(t) for t in TEST if t["group"] == "T1"))
        .replace("{{TEST_T2}}", "\n".join(test_card(t) for t in TEST if t["group"] == "T2"))
        .replace("{{FACTS}}", facts_html).replace("{{WS}}", ws_html)
+       .replace("{{MP}}", mp_html(shot, foto, oz, wb, E))
        .replace("{{TABLE}}", "\n".join(row(i) for i in ITEMS)).replace("{{DATE}}", DATE))
 for k, c in counts.items():
     out = out.replace("{{C_" + k + "}}", str(c))
