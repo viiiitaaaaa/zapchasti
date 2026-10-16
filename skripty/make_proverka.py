@@ -230,7 +230,7 @@ def test_card(t):
     oe = t["oe"]
     z = ZZAP[oe]
     return f'''
-<div class="card part">
+<div class="card part" id="p{t["n"]}">
  <div class="part-head">{foto(t["n"])}<div><h3>№{t["n"]}. {t["title"]}</h3><div class="mono">{oe}</div>
  <p>{t["what"]}</p></div></div>
  <table class="mini"><tr><th>Где</th><th>Что видно</th><th>Доказательство</th></tr>
@@ -417,7 +417,7 @@ ZV = {
 }
 z = re.sub(r"<!--INT-->.*?<!--/INT-->", "", out, flags=re.S)
 z = re.sub(r"<!--SEC5-->.*?<!--/SEC5-->", "", z, flags=re.S)
-z = z.replace(" Файл только для ПК 🟡.", "")
+z = z.replace(" Файл только для ПК 🟡.", "").replace("в разделе 5.", "в разделе 4.")
 for _n, _v in ZV.items():
     z = re.sub(r'(<h3>№%d\. .*?<p class="verdict"><b>Вывод:</b> ).*?(</p>)' % _n, lambda m, v=_v: m.group(1) + v + m.group(2), z, count=1, flags=re.S)
 z = z.replace("можно только после цен Чжана.</b> Для каждой детали ниже написано, ниже какой цены она нам выгодна.",
