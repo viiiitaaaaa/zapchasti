@@ -2,6 +2,7 @@
 import re, os, io, json, base64, subprocess, sys
 from PIL import Image
 subprocess.run([sys.executable, "skripty/make_proverka.py"], check=True, stdout=subprocess.DEVNULL)
+subprocess.run([sys.executable, "skripty/perevod_statusy.py"], check=True)
 subprocess.run([sys.executable, "skripty/bilingual.py", "build", "otchet_dlya_chzhana.html", "skripty/perevod", "tmp_bi.html"], check=True)
 h = open("tmp_bi.html", encoding="utf-8").read(); os.remove("tmp_bi.html")
 D = {}

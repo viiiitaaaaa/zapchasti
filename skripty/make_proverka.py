@@ -1,5 +1,7 @@
 # Собирает C:\Users\User\zapchasti\proverka.html — разбор списка Чжана, где у каждой цифры есть снимок-доказательство.
 # Все цифры ниже переписаны со снимков в папке dokazatelstva\ и сверены второй раз (16.10.2026).
+import json
+import re
 import html, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -145,6 +147,8 @@ ZZAP.update(ZZAP_EXTRA)
 
 # Статус по данным (Вита 16.10: «не брать» без основания не писать; конкуренты — от 15 продавцов в наличии)
 MANY = 15
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "ozon_ostalnye.py"), encoding="utf-8").read())  # OZ
+def _sp(x): return f"{x:,}".replace(",", " ")
 def status(it):
     n, oe, name, car, v, note = it
     if v in ("T1", "T2"): return "кандидат", "t", "k"
@@ -153,9 +157,34 @@ def status(it):
     if z is None: return "не проверяли", "u", "u"
     n1, n2 = z[1], z[3]
     if n1 and n1 >= MANY: return "много конкурентов", "z", "m"
+    if n in OZ:
+        cards = OZ[n][0]
+        if cards >= MANY: return "много конкурентов", "z", "m"
+        if cards < 0: return "есть на Ozon", "d", "e"
+        if cards == 0: return "на Ozon нет", "t2", "o"
+        return "есть на Ozon", "d", "e"
     if not n1 and not n2: return "нет продавцов", "n", "s"
     if not n1: return "нет в наличии", "n", "s"
     return "не проверяли", "u", "u"
+
+def oz_parts(n, oe=""):
+    """(русский, китайский) куски про Россию и Ozon для ячейки решения"""
+    if n not in OZ: return []
+    c, mn, mx, q, r, nt = OZ[n]
+    z = ZZAP.get(oe); n1 = z[1] if z else None
+    head = []
+    if n1: head.append((f"в России в наличии {prod(n1)}", f"俄罗斯现货{n1}家卖家"))
+    elif z is not None: head.append(("в России в наличии нет", "俄罗斯无现货"))
+    if c < 0: ru, zh = "на Ozon", "Ozon上"
+    else:
+        ru = "на Ozon нет карточек с этим номером" if c == 0 else f"на Ozon {c} карточек с номером"
+        zh = "Ozon上没有带此零件号的商品页" if c == 0 else f"Ozon上有{c}个带此零件号的商品页"
+    if mn:
+        mx = mx or mn
+        ru += f", {_sp(mn)}" + (f"–{_sp(mx)}" if mx != mn else "") + " ₽"; zh += f"，{mn}" + (f"–{mx}" if mx != mn else "") + "卢布"
+    if q:
+        ru += ("; " if c >= 0 else ": ") + f"продано за 30 дней (плагин): {q} шт"; zh += ("；" if c >= 0 else "") + f"30天销量（插件）：{q}件"
+    return head + [(ru, zh)]
 
 def zz_cell(oe):
     if not oe:
@@ -169,6 +198,7 @@ def zz_cell(oe):
     b = f"под заказ: {prod(n2)}" + (f" · {r2} ₽" if n2 else "")
     return f"{a}<br><span class=\"mute\">{b}</span>"
 
+STATUS_CELLS = {}
 def row(it):
     n, oe, name, car, v, note = it
     label, cls, grp = status(it)
@@ -178,7 +208,10 @@ def row(it):
         proof = f'<a href="dokazatelstva/zzap_{oe}.png" data-big="dokazatelstva/zzap_{oe}.png">снимок</a> · <a href="{zz(oe)}" target="_blank">zzap</a>'
     elif oe:
         proof = f'<a href="{zz(oe)}" target="_blank">zzap</a>'
-    why = f'<br><span class="mute">{E(note)}</span>' if note else ""
+    if n in OZ and ("Ozon" in note or re.match(r"^\d+ продав\w+ в наличии\.?$", note)): note = ""
+    why_parts = [p[0] for p in oz_parts(n, oe)] + ([OZ[n][5]] if n in OZ and OZ[n][5] else []) + ([note] if note else [])
+    why = f'<br><span class="mute">{E("; ".join(why_parts))}</span>' if why_parts else ""
+    STATUS_CELLS[n] = dict(label=label, cls=cls, parts_ru=why_parts, oz_zh=[p[1] for p in oz_parts(n, oe)], oznote=(OZ[n][5] if n in OZ else ''), note=note)
     return (f'<tr class="v-{grp}"><td>{n}</td><td>{foto(n)}</td><td><b>{E(name)}</b><br><span class="mono">{E(oe or "—")}</span> · {car}</td>'
             f'<td>{zz_cell(oe)}</td><td><span class="tag {cls}">{label}</span>{why}</td><td class="nw">{proof}</td></tr>')
 
@@ -293,7 +326,7 @@ def wordstat_link(q):
 
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mp_section.py"), encoding="utf-8").read())
 
-counts = {"K": 0, "M": 0, "S": 0, "U": 0}
+counts = {"K": 0, "M": 0, "S": 0, "U": 0, "O": 0, "E": 0}
 for _i in ITEMS: counts[status(_i)[2].upper()] += 1
 
 CSS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka.css"), encoding="utf-8").read()
@@ -408,6 +441,7 @@ price_rows = "\n".join(
     for n, t, c in PRICE)
 out = out.replace("{{PRICE}}", price_rows)
 open(os.path.join(ROOT, "proverka.html"), "w", encoding="utf-8").write(out)
+json.dump(STATUS_CELLS, open(os.path.join(ROOT, "skripty", "perevod", "_cells.json"), "w", encoding="utf-8"), ensure_ascii=False)
 
 # версия для Чжана: без раздела 5 и наших ставок, номера разделов сдвинуты
 import re
