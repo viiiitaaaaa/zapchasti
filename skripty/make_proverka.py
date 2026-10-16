@@ -140,14 +140,22 @@ ITEMS = [
  (66, "1100100XED95", "Форсунка дизельная", "Poer", "T2", ""),
 ]
 
-# в таблице всего два слова: «кандидат» и «не брать» (Вита 16.10: сложные пометки Чжан не поймёт)
-VERDICT = {
- "T1": ("кандидат", "t"), "T2": ("кандидат", "t"), "D": ("не брать", "n"),
- "Z": ("не брать", "n"), "N": ("не брать", "n"), "U": ("не брать", "n"),
-}
-
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "zzap_extra.py"), encoding="utf-8").read())  # ZZAP_EXTRA, NOTES_N
 ZZAP.update(ZZAP_EXTRA)
+
+# Статус по данным (Вита 16.10: «не брать» без основания не писать; конкуренты — от 15 продавцов в наличии)
+MANY = 15
+def status(it):
+    n, oe, name, car, v, note = it
+    if v in ("T1", "T2"): return "кандидат", "t", "k"
+    if not oe: return "нет номера", "n", "s"
+    z = ZZAP.get(oe)
+    if z is None: return "не проверяли", "u", "u"
+    n1, n2 = z[1], z[3]
+    if n1 and n1 >= MANY: return "много конкурентов", "z", "m"
+    if not n1 and not n2: return "нет продавцов", "n", "s"
+    if not n1: return "нет в наличии", "n", "s"
+    return "не проверяли", "u", "u"
 
 def zz_cell(oe):
     if not oe:
@@ -163,7 +171,7 @@ def zz_cell(oe):
 
 def row(it):
     n, oe, name, car, v, note = it
-    label, cls = VERDICT[v]
+    label, cls, grp = status(it)
     note = NOTES_N.get(n, note)
     proof = ""
     if oe and os.path.exists(os.path.join(ROOT, f"dokazatelstva/zzap_{oe}.png")):
@@ -171,8 +179,7 @@ def row(it):
     elif oe:
         proof = f'<a href="{zz(oe)}" target="_blank">zzap</a>'
     why = f'<br><span class="mute">{E(note)}</span>' if note else ""
-    grey = " v-u" if v == "U" else ""
-    return (f'<tr class="v-{cls}{grey}"><td>{n}</td><td>{foto(n)}</td><td><b>{E(name)}</b><br><span class="mono">{E(oe or "—")}</span> · {car}</td>'
+    return (f'<tr class="v-{grp}"><td>{n}</td><td>{foto(n)}</td><td><b>{E(name)}</b><br><span class="mono">{E(oe or "—")}</span> · {car}</td>'
             f'<td>{zz_cell(oe)}</td><td><span class="tag {cls}">{label}</span>{why}</td><td class="nw">{proof}</td></tr>')
 
 # ---------- карточки деталей для теста ----------
@@ -286,9 +293,8 @@ def wordstat_link(q):
 
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mp_section.py"), encoding="utf-8").read())
 
-counts = {k: sum(1 for i in ITEMS if i[4] == k) for k in VERDICT}
-counts["K"] = counts["T1"] + counts["T2"]
-counts["NB"] = len(ITEMS) - counts["K"]
+counts = {"K": 0, "M": 0, "S": 0, "U": 0}
+for _i in ITEMS: counts[status(_i)[2].upper()] += 1
 
 CSS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka.css"), encoding="utf-8").read()
 BODY = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proverka_body.html"), encoding="utf-8").read()
