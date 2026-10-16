@@ -318,8 +318,7 @@ EMEX = [
  (48, "Выпускной коллектор", "1008201XED95", "12 327 – 21 008 ₽", "5–11 дней"),
  (43, "Масляный радиатор", "1013100AED95", "10 895 – 11 501 ₽", "3–7 дней"),
 ]
-emex_rows = "
-".join(
+emex_rows = "\n".join(
     f'<tr><td>№{n}. {E(t)}<br><span class="mono">{oe}</span></td><td><b>{p}</b></td><td>{d}</td>'
     f'<td>{shot(f"emex_{oe}.png", f"<a href=https://emex.ru/products/{oe} target=_blank>открыть emex</a>")}</td></tr>'
     for n, t, oe, p, d in EMEX)
