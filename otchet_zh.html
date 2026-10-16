@@ -1,0 +1,88 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>长城炮配件：哪些值得做</title><style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d1d1f;--mute:#6b6b70;--line:#e3e1dc;--accent:#b4442b;
+--t:#1f7a4a;--t-bg:#e3f3ea;--t2:#2f6b5a;--t2-bg:#e6f0ec;--z:#8a6a12;--z-bg:#f7efd6;--d:#3b5b8c;--d-bg:#e5ecf7;--n:#a3312a;--n-bg:#f8e3e1;--u:#77767b;--u-bg:#efeeec;--hl:#fff6c2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17171a;--card:#202024;--ink:#ececee;--mute:#a1a1a8;--line:#34343a;--accent:#e2765c;
+--t:#7fd3a3;--t-bg:#1f3a2b;--t2:#9fd8c4;--t2-bg:#203530;--z:#e3c56a;--z-bg:#3a321a;--d:#9db8e6;--d-bg:#222f45;--n:#f0938a;--n-bg:#43221f;--u:#a5a4aa;--u-bg:#2a2a2f;--hl:#3a3418}}
+:root[data-theme="dark"]{--bg:#17171a;--card:#202024;--ink:#ececee;--mute:#a1a1a8;--line:#34343a;--accent:#e2765c;
+--t:#7fd3a3;--t-bg:#1f3a2b;--t2:#9fd8c4;--t2-bg:#203530;--z:#e3c56a;--z-bg:#3a321a;--d:#9db8e6;--d-bg:#222f45;--n:#f0938a;--n-bg:#43221f;--u:#a5a4aa;--u-bg:#2a2a2f;--hl:#3a3418}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:28px;margin:0 0 4px}
+h2{font-size:22px;margin:40px 0 10px;padding-top:10px;border-top:1px solid var(--line)}
+h3{font-size:18px;margin:4px 0 6px}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.key{border-left:4px solid var(--accent)}
+ul,ol{padding-left:22px;margin:6px 0}
+li{margin:5px 0}
+.mute{color:var(--mute);font-size:14px}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.nw{white-space:nowrap}
+.gloss dt{font-weight:700;margin-top:10px}
+.gloss dd{margin:2px 0 0 0}
+.fact{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+.fact p{margin:4px 0}
+.src{font-size:14px}
+.shot{margin:0}
+.shot img{width:100%;max-width:340px;border:1px solid var(--line);border-radius:8px;display:block;cursor:zoom-in;background:#fff}
+.shot figcaption{font-size:13px;color:var(--mute);margin-top:4px}
+.miss{color:var(--n);font-size:13px}
+.part-head{display:flex;gap:16px;align-items:flex-start}
+.foto{width:110px;height:auto;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:zoom-in}
+.mini{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+.mini th,.mini td{border-top:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.mini td:last-child{width:300px}
+.mini .shot img{max-width:280px}
+.verdict{background:var(--hl);border-radius:8px;padding:10px 12px;margin:12px 0 0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table.big{border-collapse:collapse;width:100%;font-size:14px}
+table.big th,table.big td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.big th{position:sticky;top:0;background:var(--card)}
+table.big .foto{width:70px}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.t{color:var(--t);background:var(--t-bg)}.t2{color:var(--t2);background:var(--t2-bg)}.z{color:var(--z);background:var(--z-bg)}
+.d{color:var(--d);background:var(--d-bg)}.n{color:var(--n);background:var(--n-bg)}.u{color:var(--u);background:var(--u-bg)}
+tr.v-u td{color:var(--mute)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.filters button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:4px 12px;font:inherit;font-size:14px;cursor:pointer}
+.filters button.on{border-color:var(--accent);color:var(--accent)}
+.fix li{margin:8px 0}
+.q{margin:10px 0}.q .ru{font-weight:600}.q .zh{color:var(--mute);font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+a{color:var(--accent)}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:10;cursor:zoom-out;padding:16px}
+#lb img{max-width:100%;max-height:100%;border-radius:6px;background:#fff}
+@media (max-width:760px){.fact{grid-template-columns:1fr}.mini td:last-child{width:auto}.part-head{flex-direction:column}}
+
+</style></head><body><main>
+<h1>长城炮（Poer）配件：哪些值得做，哪些不值得</h1>
+<p class="sub">我们查了您清单上的66个零件。下面先给结论；完整数据和每个数字的网页截图见俄文报告（otchet_dlya_chzhana.html）。</p>
+<div class="card key"><h3>主要结论：66个零件里，值得做的有8个</h3>
+<p style="margin:6px 0">长城炮（Poer）在俄罗斯的保有量不大，约1万台（哈弗的销量是它的几十倍）。所以不能整张清单都做：贵的零件每月只能卖出几个，便宜的零件已经有几十家店在卖。但有8个零件还有空间：要么几乎没人卖，要么俄罗斯店里的价格比国外卖家高出好几倍，而国外卖家要2–4周才能送到。我们可以从俄罗斯本地快速供货。其余58个不建议做。</p>
+<p style="margin:6px 0">目前缺的是：您的价格。没有价格，我们只知道“卖多少钱”，不知道“能以多少钱进货”。</p>
+</div>
+<h2 style="margin-top:28px">建议做的零件</h2><div class="card">
+<p style="margin:6px 0">一、优先：Ozon和WB上没有的零件（俄罗斯店里只有1–3家有货）</p>
+<p style="margin:6px 0"><b>1. </b>真空泵（第19项）：俄罗斯现货3家；Ozon上没有；WB上有2个国外商品，7556–7926卢布。</p>
+<p style="margin:6px 0"><b>2. </b>后减振器（第53项）：现货2家，每个5000卢布；Ozon和WB上都没有。</p>
+<p style="margin:6px 0"><b>3. </b>排气歧管（第48项）：现货1家，15000卢布；Ozon上没有；WB上国外商品18528卢布。不容易坏，试单1个即可。</p>
+<p style="margin:6px 0">二、其次：国外卖家价格明显更低的零件（我们的优势是送货快；国外要2–4周）</p>
+<p style="margin:6px 0"><b>4. </b>高压油泵（第8项）：俄罗斯现货57000–70000卢布；Ozon上从20331卢布起。</p>
+<p style="margin:6px 0"><b>5. </b>喷油器（第66项）：俄罗斯现货13900–23820卢布；Ozon上从4826卢布起。</p>
+<p style="margin:6px 0"><b>6. </b>高压油轨（第40项）：俄罗斯无现货，只能订货；WB上从7890卢布起。</p>
+<p style="margin:6px 0"><b>7. </b>水泵（第12项）：俄罗斯现货10000–16492卢布；Ozon上从4264卢布起（多数是副厂件）。</p>
+<p style="margin:6px 0"><b>8. </b>机油冷却器（第43项）：俄罗斯1家，9480卢布；Ozon上6796卢布（卖家写的零件号略有不同，需要和您核对）。</p>
+<p style="margin:6px 0">销量参考（误差约35%）：Ozon上30天内，高压油泵1个、油轨3个、水泵4个、喷油器25个。市场不大，所以建议先小批量试单，每种1–2个。</p>
+</div>
+<h2 style="margin-top:28px">不建议做的零件</h2><div class="card">
+<p style="margin:6px 0">- 机油滤清器、燃油滤清器、刹车片、刹车盘、稳定杆连杆，以及其他便宜小件（共21项）：有几十家店在卖（机油滤清器62家、燃油滤芯38家、刹车片27家、刹车盘17家）。价格低，每件只赚几百卢布，单独运不划算；可以和贵的零件装在同一个箱子里。</p>
+<p style="margin:6px 0">- 离合器、离合器总泵和软管、换挡拉索：只适用于手动挡。长城炮基本是自动挡，手动挡2026年才出现，车很少。</p>
+<p style="margin:6px 0">- 俄罗斯几乎没有的零件（尿素喷嘴、传动轴、飞轮、带弹簧减振器等）：按零件号查不到任何卖家，可能不是俄罗斯车型的零件，或零件号不同。请先和我们核对零件号。</p>
+<p style="margin:6px 0">- 悬挂、转向、轮毂、支架等：只查了俄罗斯店铺，没发现必须优先做的理由。Ozon和WB还没查，需要的话可以再查。</p>
+</div>
+<h2 style="margin-top:28px">需要您提供</h2><div class="card">
+<p style="margin:6px 0"><b>1. </b>以下8个零件的人民币价格和起订量。</p>
+<p style="margin:6px 0"><b>2. </b>是原厂件、副厂件还是二手件？是否适用于2.0柴油发动机？</p>
+<p style="margin:6px 0"><b>3. </b>现在有没有现货？能否送到莫斯科或边境？</p>
+<p style="margin:6px 0">收到价格后，我们会计算在什么进货价下划算，再告诉您具体做哪些。</p>
+</div></main></body></html>
