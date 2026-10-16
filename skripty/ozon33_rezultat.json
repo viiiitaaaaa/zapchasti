@@ -1,0 +1,102 @@
+{
+"2": {
+"oe": "2906101XKV3AA",
+"nothing": false,
+"all": 46,
+"oeCards": 5,
+"min": 357,
+"max": 1432,
+"mpsCards": 2,
+"ordersQty": 0,
+"ordersRub": 0
+},
+"5": {
+"oe": "3701011XED95",
+"all": 15,
+"oeCards": 4,
+"min": 1767,
+"max": 5087,
+"mpsCards": 3,
+"ordersQty": 8,
+"ordersRub": 16372
+},
+"3": {
+"oe": "2906604XGW04A",
+"all": 42,
+"oeCards": 0
+},
+"9": {
+"oe": "1111400XED95",
+"all": 24,
+"oeCards": 19,
+"min": 528,
+"max": 16682,
+"mpsCards": 10,
+"ordersQty": 2,
+"ordersRub": 18906
+},
+"13": {
+"oe": "2904109XPW01A",
+"all": 16,
+"oeCards": 11,
+"min": 1325,
+"max": 3747,
+"mpsCards": 8,
+"ordersQty": 165,
+"ordersRub": 324906
+},
+"14": {
+"oe": "2912106XPW01A",
+"all": 19,
+"oeCards": 5,
+"min": 1025,
+"max": 1387,
+"mpsCards": 1,
+"ordersQty": 0,
+"ordersRub": 0
+},
+"16": {
+"oe": "3404102XPW01A",
+"all": 47,
+"oeCards": 6,
+"min": 6443,
+"max": 7534,
+"mpsCards": 2,
+"ordersQty": 0,
+"ordersRub": 0,
+"note": "рулевой вал нижний, 6 карточек"
+},
+"18": {
+"oe": "3407101APW01A",
+"all": 41,
+"oeCards": 1,
+"min": 7252,
+"max": 7252,
+"mpsCards": 1,
+"ordersQty": 0,
+"ordersRub": 0,
+"note": "насос ГУР Quanxing, 1 карточка"
+},
+"20": {
+"oe": "K0120554",
+"all": 24,
+"oeCards": 14,
+"min": 5484,
+"max": 11370,
+"mpsCards": 13,
+"ordersQty": 21,
+"ordersRub": 175072,
+"note": "цепь ГРМ/комплект Gates"
+},
+"22": {
+"oe": "2912102XPW01A",
+"all": 44,
+"oeCards": 3,
+"min": 18022,
+"max": 25356,
+"mpsCards": 3,
+"ordersQty": 4,
+"ordersRub": 1745,
+"note": "рессора задняя 18022–25356; 449 — сайлентблок"
+}
+}
